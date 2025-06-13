@@ -1,0 +1,2553 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAVIS</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link rel="icon" type="image/png" href="/static/images/peharge-logo3.4.png" />
+    <style>
+        body {
+            font-family: Calibri, sans-serif;
+            background-image: url('/static/images/mavis-banner2.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .taskbar {
+            position: absolute;
+            bottom: 4%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 75%;
+            height: 130px;
+            max-width: 90%;
+            max-height: 18%;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(8px);
+            border-radius: 25px;
+            border-bottom: 3px solid rgba(0, 0, 0, 0.440);
+            border-left: 2px  rgba(0, 0, 0, 0.545) outset;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 3px 8px 5px 0px rgba(0, 0, 0, 0.2);
+        }
+
+        .chat-container {
+            width: 85%;
+            max-width: 85%;
+            background-color: rgba(0, 0, 0, 0);
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 78%;
+            margin-top: -8%; /* 150px */
+        }
+
+
+        .chat-output {
+            flex: 1;
+            background-color: rgba(0, 0, 0, 0);
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 15px;
+            max-height: 100%;
+        }
+
+        .message-box {
+
+        }
+
+        .user-box {
+            padding: 15px;
+            border-radius: 15px;
+            font-size: 16px;
+            max-width: 90%;
+            word-wrap: break-word;
+            display: flex;
+            justify-content: flex-end;
+            background-color: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(8px);
+            color: #ffffff;
+            border-bottom: 3px solid rgba(0, 0, 0, 0.440);
+            border-left: 2px  rgba(0, 0, 0, 0.545) outset;
+            box-shadow: 3px 8px 5px 0px rgba(0, 0, 0, 0.2);
+        }
+
+        .chatbot-box {
+            padding: 15px;
+            border-radius: 15px;
+            font-size: 16px;
+            max-width: 90%;
+            word-wrap: break-word;
+            display: flex;
+            justify-content: flex-end;
+            background-color: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(8px);
+            color: #ffffff;
+            border-bottom: 3px solid rgba(0, 0, 0, 0.440);
+            border-left: 2px  rgba(0, 0, 0, 0.545) outset;
+            display: flex;
+            box-shadow: 3px 8px 5px 0px rgba(0, 0, 0, 0.2);
+        }
+
+        .chatbot-box-code {
+            padding: 15px;
+            border-radius: 15px;
+            font-size: 16px;
+            max-width: 90%;
+            word-wrap: break-word;
+            display: flex;
+            justify-content: flex-end;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
+            color: #e83e8c;
+            border-bottom: 3px solid rgba(0, 0, 0, 0.440);
+            border-left: 2px  rgba(0, 0, 0, 0.545) outset;
+            box-shadow: 3px 8px 5px 0px rgba(0, 0, 0, 0.2);
+        }
+        .chatbot-box-code .img-out {
+            max-width: 100%;
+            max-height: 300px;
+            margin: 0 auto;
+            border-radius: 15px;
+            box-shadow: 3px 8px 5px 0px rgba(0, 0, 0, 0.2);
+        }
+
+        .custom-select {
+            position: relative;
+            height: 60px;
+            width: 200px;
+            border: none;
+            border-radius: 6px;
+            background-color: transparent;
+            color: #fff;
+            cursor: pointer;
+            margin-right: 3%;
+        }
+
+        .select-selected {
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0px 7px;
+            border-radius: 6px;
+            background-color: rgba(0, 0, 0, 0.1);
+            color: #fff;
+            font-size: 15px;
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 1),
+                        -1px -1px 6px rgba(255, 255, 255, 0.4);
+        }
+
+        .select-selected:hover {
+            border: 2px solid transparent;
+            color: #fff;
+            box-shadow: 3px 3px 10px rgba(0,0,0,1),
+            -1px -1px 6px rgba(255, 255, 255, 0.4),
+            inset 3px 3px 10px rgba(0,0,0,1),
+            inset -1px -1px 6px rgba(255, 255, 255, 0.4);
+            text-shadow: 3px 3px 10px rgba(0, 0, 0, 1),
+            -1px -1px 6px rgba(255, 255, 255, 0.4);
+        }
+
+        .select-items {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.3);
+            -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(8px);
+            border-bottom: 3px solid rgba(0, 0, 0, 0.440);
+            border-left: 2px  rgba(0, 0, 0, 0.545) outset;
+            border-radius: 15px;
+            z-index: 99;
+            width: 400px;
+            max-height: 400px;
+            overflow-y: auto;
+            color: #fff;
+            margin-top: -550px;
+            margin-left: 473px;
+            box-shadow: 3px 8px 5px 0px rgba(0, 0, 0, 0.2);
+        }
+
+        .select-option {
+            padding: 10px;
+            cursor: pointer;
+            margin-top: -5px;
+        }
+
+        .select-option:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .select-hide {
+            display: none;
+        }
+
+        .container-usern {
+            width: 66%;
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+            position: relative;
+            color: white;
+        }
+
+        .container-usern .label {
+            font-size: 15px;
+            padding-left: 10px;
+            position: absolute;
+            top: 13px;
+            transition: 0.3s;
+            pointer-events: none;
+        }
+
+        .input {
+            width: 100%;
+            height: 50px;
+            border: none;
+            outline: none;
+            padding: 0px 7px;
+            border-radius: 6px;
+            color: #fff;
+            font-size: 15px;
+            background-color: transparent;
+            box-shadow: 3px 3px 10px rgba(0,0,0,1),
+            -1px -1px 6px rgba(255, 255, 255, 0.4);
+            text-shadow: 3px 3px 10px rgba(0, 0, 0, 1),
+            -1px -1px 6px rgba(255, 255, 255, 0.4);
+        }
+
+        .input:focus {
+            border: 2px solid transparent;
+            color: #fff;
+            box-shadow: 3px 3px 10px rgba(0,0,0,1),
+            -1px -1px 6px rgba(255, 255, 255, 0.4),
+            inset 3px 3px 10px rgba(0,0,0,1),
+            inset -1px -1px 6px rgba(255, 255, 255, 0.4);
+        }
+
+        .container-usern .input:valid ~ .label,
+        .container-usern .input:focus ~ .label {
+            transition: 0.3s;
+            padding-left: 2px;
+            transform: translateY(-35px);
+        }
+
+        .container-usern .input:valid,
+        .container-usern .input:focus {
+            box-shadow: 3px 3px 10px rgba(0,0,0,1),
+            -1px -1px 6px rgba(255, 255, 255, 0.4),
+            inset 3px 3px 10px rgba(0,0,0,1),
+            inset -1px -1px 6px rgba(255, 255, 255, 0.4);
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        .chat-output::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .chat-output::-webkit-scrollbar-thumb {
+            background-color: #888;
+            border-radius: 10px;
+        }
+
+        .chat-output::-webkit-scrollbar-thumb:hover {
+            background-color: #555;
+        }
+
+        .button2 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            width: 10%;
+            max-width: 160px;
+            max-height: 100px;
+            min-width: 80px;
+            height: 50px;
+            border-radius: 6px;
+            padding: 0px 7px;
+            color: #fff;
+            font-size: 18px;
+            background-color: transparent;
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 1), -1px -1px 6px rgba(255, 255, 255, 0.4);
+            margin-left: 5%;
+            text-shadow: 3px 3px 10px rgba(0, 0, 0, 1),
+            -1px -1px 6px rgba(255, 255, 255, 0.4);
+        }
+
+        .button2:hover {
+            border: 2px solid transparent;
+            color: #fff;
+            box-shadow: 3px 3px 10px rgba(0,0,0,1),
+            -1px -1px 6px rgba(255, 255, 255, 0.4),
+            inset 3px 3px 10px rgba(0,0,0,1),
+            inset -1px -1px 6px rgba(255, 255, 255, 0.4);
+            text-shadow: 3px 3px 10px rgba(0, 0, 0, 1),
+            -1px -1px 6px rgba(255, 255, 255, 0.4);
+        }
+
+        .button3 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            width: 5%;
+            height: 50px;
+            max-width: 100px;
+            max-height: 100px;
+            min-width: 50px;
+            border-radius: 25px;
+            padding: 0px 7px;
+            color: #fff;
+            font-size: 15px;
+            background-color: transparent;
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 1), -1px -1px 6px rgba(255, 255, 255, 0.4);
+            margin-left: 5%;
+            text-shadow: 3px 3px 10px rgba(0, 0, 0, 1),
+            -1px -1px 6px rgba(255, 255, 255, 0.4);
+        }
+
+        .button3:hover {
+            border: 2px solid transparent;
+            color: #fff;
+            box-shadow: 3px 3px 10px rgba(0,0,0,1),
+            -1px -1px 6px rgba(255, 255, 255, 0.4),
+            inset 3px 3px 10px rgba(0,0,0,1),
+            inset -1px -1px 6px rgba(255, 255, 255, 0.4);
+            text-shadow: 3px 3px 10px rgba(0, 0, 0, 1),
+            -1px -1px 6px rgba(255, 255, 255, 0.4);
+        }
+
+        .card2 {
+            display: none;
+            background-color: rgba(0, 0, 0, 0);
+            border: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .loader {
+            width: 200px;
+            aspect-ratio: 1;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(8px);
+            border-radius: 50%;
+            position: relative;
+            padding: 4px;
+            box-shadow: 3px 8px 5px 0px rgba(0, 0, 0, 0.2);
+            display: flex;
+        }
+
+        .loader .dots-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .loader .dots-container .dot-row {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%) rotate(0deg);
+            transform-origin: right center;
+            width: 50%;
+            height: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .loader .dots-container .dot-row > * {
+            animation: blink 5s linear infinite;
+        }
+
+        .loader .dots-container .dot-row .dot {
+            width: 4%;
+            aspect-ratio: 1;
+            background: #8b8b8b;
+            border-radius: 50%;
+        }
+
+        .loader .dots-container .dot-row:nth-child(1) {
+            transform: translateY(-50%) rotate(0deg);
+        }
+
+        .loader .dots-container .dot-row:nth-child(1) .dot {
+            animation-delay: 0s;
+        }
+
+        .loader .dots-container .dot-row:nth-child(2) {
+            transform: translateY(-50%) rotate(8deg);
+        }
+
+        .loader .dots-container .dot-row:nth-child(2) .dot {
+            animation-delay: 0.1111111111s;
+        }
+
+        .loader .dots-container .dot-row:nth-child(3) {
+            transform: translateY(-50%) rotate(16deg);
+        }
+
+        .loader .dots-container .dot-row:nth-child(3) .dot {
+            animation-delay: 0.2222222222s;
+        }
+
+        .loader .dots-container .dot-row:nth-child(4) {
+            transform: translateY(-50%) rotate(24deg);
+        }
+
+        .loader .dots-container .dot-row:nth-child(4) .dot {
+            animation-delay: 0.3333333333s;
+        }
+
+        .loader .dots-container .dot-row:nth-child(5) {
+            transform: translateY(-50%) rotate(32deg);
+        }
+
+        .loader .dots-container .dot-row:nth-child(5) .dot {
+            animation-delay: 0.4444444444s;
+        }
+
+        .loader .dots-container .dot-row:nth-child(6) {
+            transform: translateY(-50%) rotate(40deg);
+        }
+
+        .loader .dots-container .dot-row:nth-child(6) .dot {
+            animation-delay: 0.5555555556s;
+        }
+
+        .loader .dots-container .dot-row:nth-child(7) {
+            transform: translateY(-50%) rotate(48deg);
+        }
+
+        .loader .dots-container .dot-row:nth-child(7) .dot {
+            animation-delay: 0.6666666667s;
+        }
+
+        .loader .dots-container .dot-row:nth-child(8) {
+            transform: translateY(-50%) rotate(56deg);
+        }
+
+        .loader .dots-container .dot-row:nth-child(8) .dot {
+            animation-delay: 0.7777777778s;
+        }
+
+        .loader .dots-container .dot-row:nth-child(9) {
+            transform: translateY(-50%) rotate(64deg);
+        }
+
+        .loader .dots-container .dot-row:nth-child(9) .dot {
+            animation-delay: 0.8888888889s;
+        }
+
+        .loader .dots-container .dot-row:nth-child(10) {
+            transform: translateY(-50%) rotate(72deg);
+        }
+
+        .loader .dots-container .dot-row:nth-child(10) .dot {
+            animation-delay: 1s;
+        }
+
+        .loader .dots-container .dot-row:nth-child(11) {
+            transform: translateY(-50%) rotate(80deg);
+        }
+
+        .loader .dots-container .dot-row:nth-child(11) .dot {
+            animation-delay: 1.1111111111s;
+        }
+
+        .loader .dots-container .dot-row:nth-child(12) {
+            transform: translateY(-50%) rotate(88deg);
+        }
+
+        .loader .dots-container .dot-row:nth-child(12) .dot {
+            animation-delay: 1.2222222222s;
+        }
+
+        .loader .dots-container .dot-row:nth-child(13) {
+            transform: translateY(-50%) rotate(96deg);
+        }
+
+        .loader .dots-container .dot-row:nth-child(13) .dot {
+            animation-delay: 1.3333333333s;
+        }
+
+        .loader .dots-container .dot-row:nth-child(14) {
+            transform: translateY(-50%) rotate(104deg);
+        }
+
+        .loader .dots-container .dot-row:nth-child(14) .dot {
+            animation-delay: 1.4444444444s;
+        }
+
+        .loader .dots-container .dot-row:nth-child(15) {
+            transform: translateY(-50%) rotate(112deg);
+        }
+
+        .loader .dots-container .dot-row:nth-child(15) .dot {
+            animation-delay: 1.5555555556s;
+        }
+
+        .loader .dots-container .dot-row:nth-child(16) {
+            transform: translateY(-50%) rotate(120deg);
+        }
+
+        .loader .dots-container .dot-row:nth-child(16) .dot {
+            animation-delay: 1.6666666667s;
+        }
+
+        .loader .dots-container .dot-row:nth-child(17) {
+            transform: translateY(-50%) rotate(128deg);
+        }
+
+        .loader .dots-container .dot-row:nth-child(17) .dot {
+            animation-delay: 1.7777777778s;
+        }
+
+        .loader .dots-container .dot-row:nth-child(18) {
+            transform: translateY(-50%) rotate(136deg);
+        }
+
+        .loader .dots-container .dot-row:nth-child(18) .dot {
+            animation-delay: 1.8888888889s;
+        }
+
+        .loader .dots-container .dot-row:nth-child(19) {
+            transform: translateY(-50%) rotate(144deg);
+        }
+
+        .loader .dots-container .dot-row:nth-child(19) .dot {
+            animation-delay: 2s;
+        }
+
+        .loader .dots-container .dot-row:nth-child(20) {
+            transform: translateY(-50%) rotate(152deg);
+        }
+
+        .loader .dots-container .dot-row:nth-child(20) .dot {
+            animation-delay: 2.1111111111s;
+        }
+
+        .loader .dots-container .dot-row:nth-child(21) {
+            transform: translateY(-50%) rotate(160deg);
+        }
+
+        .loader .dots-container .dot-row:nth-child(21) .dot {
+            animation-delay: 2.2222222222s;
+        }
+
+        .loader .dots-container .dot-row:nth-child(22) {
+            transform: translateY(-50%) rotate(168deg);
+        }
+
+        .loader .dots-container .dot-row:nth-child(22) .dot {
+            animation-delay: 2.3333333333s;
+        }
+
+        .loader .dots-container .dot-row:nth-child(23) {
+            transform: translateY(-50%) rotate(176deg);
+        }
+
+        .loader .dots-container .dot-row:nth-child(23) .dot {
+            animation-delay: 2.4444444444s;
+        }
+
+        .loader .dots-container .dot-row:nth-child(24) {
+            transform: translateY(-50%) rotate(184deg);
+        }
+
+        .loader .dots-container .dot-row:nth-child(24) .dot {
+            animation-delay: 2.5555555556s;
+        }
+
+        .loader .dots-container .dot-row:nth-child(25) {
+            transform: translateY(-50%) rotate(192deg);
+        }
+
+        .loader .dots-container .dot-row:nth-child(25) .dot {
+            animation-delay: 2.6666666667s;
+        }
+
+        .loader .dots-container .dot-row:nth-child(26) {
+            transform: translateY(-50%) rotate(200deg);
+        }
+
+        .loader .dots-container .dot-row:nth-child(26) .dot {
+            animation-delay: 2.7777777778s;
+        }
+
+        .loader .dots-container .dot-row:nth-child(27) {
+            transform: translateY(-50%) rotate(208deg);
+        }
+
+        .loader .dots-container .dot-row:nth-child(27) .dot {
+            animation-delay: 2.8888888889s;
+        }
+
+        .loader .dots-container .dot-row:nth-child(28) {
+            transform: translateY(-50%) rotate(216deg);
+        }
+
+        .loader .dots-container .dot-row:nth-child(28) .dot {
+            animation-delay: 3s;
+        }
+
+        .loader .dots-container .dot-row:nth-child(29) {
+            transform: translateY(-50%) rotate(224deg);
+        }
+
+        .loader .dots-container .dot-row:nth-child(29) .dot {
+            animation-delay: 3.1111111111s;
+        }
+
+        .loader .dots-container .dot-row:nth-child(30) {
+            transform: translateY(-50%) rotate(232deg);
+        }
+
+        .loader .dots-container .dot-row:nth-child(30) .dot {
+            animation-delay: 3.2222222222s;
+        }
+
+        .loader .dots-container .dot-row:nth-child(31) {
+            transform: translateY(-50%) rotate(240deg);
+        }
+
+        .loader .dots-container .dot-row:nth-child(31) .dot {
+            animation-delay: 3.3333333333s;
+        }
+
+        .loader .dots-container .dot-row:nth-child(32) {
+            transform: translateY(-50%) rotate(248deg);
+        }
+
+        .loader .dots-container .dot-row:nth-child(32) .dot {
+            animation-delay: 3.4444444444s;
+        }
+
+        .loader .dots-container .dot-row:nth-child(33) {
+            transform: translateY(-50%) rotate(256deg);
+        }
+
+        .loader .dots-container .dot-row:nth-child(33) .dot {
+            animation-delay: 3.5555555556s;
+        }
+
+        .loader .dots-container .dot-row:nth-child(34) {
+            transform: translateY(-50%) rotate(264deg);
+        }
+
+        .loader .dots-container .dot-row:nth-child(34) .dot {
+            animation-delay: 3.6666666667s;
+        }
+
+        .loader .dots-container .dot-row:nth-child(35) {
+            transform: translateY(-50%) rotate(272deg);
+        }
+
+        .loader .dots-container .dot-row:nth-child(35) .dot {
+            animation-delay: 3.7777777778s;
+        }
+
+        .loader .dots-container .dot-row:nth-child(36) {
+            transform: translateY(-50%) rotate(280deg);
+        }
+
+        .loader .dots-container .dot-row:nth-child(36) .dot {
+            animation-delay: 3.8888888889s;
+        }
+
+        .loader .dots-container .dot-row:nth-child(37) {
+            transform: translateY(-50%) rotate(288deg);
+        }
+
+        .loader .dots-container .dot-row:nth-child(37) .dot {
+            animation-delay: 4s;
+        }
+
+        .loader .dots-container .dot-row:nth-child(38) {
+            transform: translateY(-50%) rotate(296deg);
+        }
+
+        .loader .dots-container .dot-row:nth-child(38) .dot {
+            animation-delay: 4.1111111111s;
+        }
+
+        .loader .dots-container .dot-row:nth-child(39) {
+            transform: translateY(-50%) rotate(304deg);
+        }
+
+        .loader .dots-container .dot-row:nth-child(39) .dot {
+            animation-delay: 4.2222222222s;
+        }
+
+        .loader .dots-container .dot-row:nth-child(40) {
+            transform: translateY(-50%) rotate(312deg);
+        }
+
+        .loader .dots-container .dot-row:nth-child(40) .dot {
+            animation-delay: 4.3333333333s;
+        }
+
+        .loader .dots-container .dot-row:nth-child(41) {
+            transform: translateY(-50%) rotate(320deg);
+        }
+
+        .loader .dots-container .dot-row:nth-child(41) .dot {
+            animation-delay: 4.4444444444s;
+        }
+
+        .loader .dots-container .dot-row:nth-child(42) {
+            transform: translateY(-50%) rotate(328deg);
+        }
+
+        .loader .dots-container .dot-row:nth-child(42) .dot {
+            animation-delay: 4.5555555556s;
+        }
+
+        .loader .dots-container .dot-row:nth-child(43) {
+            transform: translateY(-50%) rotate(336deg);
+        }
+
+        .loader .dots-container .dot-row:nth-child(43) .dot {
+            animation-delay: 4.6666666667s;
+        }
+
+        .loader .dots-container .dot-row:nth-child(44) {
+            transform: translateY(-50%) rotate(344deg);
+        }
+
+        .loader .dots-container .dot-row:nth-child(44) .dot {
+            animation-delay: 4.7777777778s;
+        }
+
+        .loader .dots-container .dot-row:nth-child(45) {
+            transform: translateY(-50%) rotate(352deg);
+        }
+
+        .loader .dots-container .dot-row:nth-child(45) .dot {
+            animation-delay: 4.8888888889s;
+        }
+
+        .loader .center-div {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 36%;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            display: grid;
+            place-content: center;
+            background: linear-gradient(135deg, rgb(130, 130, 130) 0%, rgb(73, 73, 73) 100%);
+            box-shadow: rgba(39, 39, 39, 0.3) 8px 8px 5px -5px, rgba(39, 39, 39, 0.5) 8px 8px 10px 0px;
+            border-right: 1px solid rgb(63, 63, 63);
+            border-bottom: 1px solid rgb(63, 63, 63);
+        }
+
+        .loader .center-div .svg {
+            width: 15px;
+            aspect-ratio: 1;
+            fill: rgba(0, 0, 0, 0.293);
+        }
+
+        .loader .glass {
+            position: absolute;
+            height: 50%;
+            width: 80%;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%) rotate(-45deg);
+            transform-origin: bottom center;
+            border-radius: inherit;
+            border-radius: 51% 49% 51% 49%/59% 60% 40% 41%;
+        }
+
+        @keyframes blink {
+          0% {
+            background: white;
+            box-shadow: 0px 0px 2px rgb(255, 255, 255);
+          }
+
+          10% {
+            background: white;
+            box-shadow: 0px 0px 2px rgb(255, 255, 255);
+          }
+
+          20% {
+            background: white;
+            box-shadow: 0px 0px 2px rgb(255, 255, 255);
+          }
+
+          21% {
+            background: grey;
+          }
+        }
+
+        .words {
+            overflow: hidden;
+            position: relative;
+        }
+        .words::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                var(--bg-color) 10%,
+                transparent 30%,
+                transparent 70%,
+                var(--bg-color) 90%
+            );
+            z-index: 20;
+        }
+
+        .word {
+            display: block;
+            height: 100%;
+            padding-left: 6px;
+            color: #956afa;
+            animation: spin_4991 4s infinite;
+        }
+
+        @keyframes spin_4991 {
+          10% {
+            -webkit-transform: translateY(-102%);
+            transform: translateY(-102%);
+          }
+
+          25% {
+            -webkit-transform: translateY(-100%);
+            transform: translateY(-100%);
+          }
+
+          35% {
+            -webkit-transform: translateY(-202%);
+            transform: translateY(-202%);
+          }
+
+          50% {
+            -webkit-transform: translateY(-200%);
+            transform: translateY(-200%);
+          }
+
+          60% {
+            -webkit-transform: translateY(-302%);
+            transform: translateY(-302%);
+          }
+
+          75% {
+            -webkit-transform: translateY(-300%);
+            transform: translateY(-300%);
+          }
+
+          85% {
+            -webkit-transform: translateY(-402%);
+            transform: translateY(-402%);
+          }
+
+          100% {
+            -webkit-transform: translateY(-400%);
+            transform: translateY(-400%);
+          }
+        }
+
+        .button-container {
+            cursor: pointer;
+            display: flex;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(8px);
+            border-bottom: 3px solid rgba(0, 0, 0, 0.440);
+            border-left: 2px  rgba(0, 0, 0, 0.545) outset;
+            align-items: center;
+            box-shadow: 3px 8px 5px 0px rgba(0, 0, 0, 0.2);
+            width: 14%;
+            height: 50px;
+            max-width: 300px;
+            max-height: 100px;
+            min-width: 200px;
+            justify-content: space-around;
+            border-radius: 15px;
+            position: absolute;
+            bottom: 20%;
+            left: 43%;
+            z-index: 999;
+        }
+
+        .button-home {
+            outline: 0 !important;
+            border: 0 !important;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            transition: all ease-in-out 0.3s;
+            cursor: pointer;
+        }
+
+        .button-search {
+            outline: 0 !important;
+            border: 0 !important;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            transition: all ease-in-out 0.3s;
+            cursor: pointer;
+        }
+
+        .button-account {
+            outline: 0 !important;
+            border: 0 !important;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            transition: all ease-in-out 0.3s;
+            cursor: pointer;
+        }
+
+        .button-shop {
+            outline: 0 !important;
+            border: 0 !important;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            transition: all ease-in-out 0.3s;
+            cursor: pointer;
+        }
+
+        .button-home:hover {
+            transform: translateY(-3px);
+        }
+
+        .button-search:hover {
+            transform: translateY(-3px);
+        }
+
+        .button-account:hover {
+            transform: translateY(-3px);
+        }
+
+        .button-shop:hover {
+            transform: translateY(-3px);
+        }
+
+        .icon2 {
+            font-size: 25px;
+        }
+
+        .card {
+            display: none;
+            width: 600px;
+            height: 130px;
+            padding: 0.5rem;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(8px);
+            transform: skewX(10deg);
+            border-radius: 15px;
+            border-bottom: 3px solid rgba(0, 0, 0, 0.440);
+            border-left: 2px rgba(0, 0, 0, 0.545) outset;
+            box-shadow: 40px 50px 30px rgba(0, 0, 0, 0.280);
+            transition: 0.4s;
+            overflow: hidden;
+            color: white;
+            position: fixed;
+            top: 15%;
+            left: 34%;
+        }
+
+        .card:hover {
+            height: 460px;
+            transform: skew(0deg);
+        }
+
+        .align {
+            padding: 1rem;
+            display: flex;
+            flex-direction: row;
+            gap: 5px;
+            align-self: flex-start;
+        }
+
+        .red {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #ff605c;
+            box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.280);
+        }
+
+        .yellow {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #ffbd44;
+            box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.280);
+        }
+
+        .green {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #00ca4e;
+            box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.280);
+        }
+
+        .card h1 {
+            font-size: 35px;
+            text-align: center;
+            margin: 1.3rem;
+            color: rgb(255, 255, 255);
+            text-shadow: 10px 5px 10px rgba(0, 0, 0, 0.573);
+        }
+
+        .card-image-preview {
+            display: none;
+            width: 600px;
+            height: 150px;
+            padding: 0.5rem;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(8px);
+            transform: skewX(10deg);
+            border-radius: 15px;
+            border-bottom: 3px solid rgba(0, 0, 0, 0.440);
+            border-left: 2px rgba(0, 0, 0, 0.545) outset;
+            box-shadow: 40px 50px 30px rgba(0, 0, 0, 0.280);
+            transition: 0.4s;
+            overflow: hidden;
+            color: white;
+            position: fixed;
+            top: 15%;
+            left: 34%;
+        }
+
+        .card-image-preview:hover {
+            height: 50%;
+            transform: skew(0deg);
+        }
+
+        .align-image-preview {
+            padding: 1rem;
+            display: flex;
+            flex-direction: row;
+            gap: 5px;
+            align-self: flex-start;
+        }
+
+        .red-image-preview {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #ff605c;
+            box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.280);
+        }
+
+        .yellow-image-preview {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #ffbd44;
+            box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.280);
+        }
+
+        .green-image-preview {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #00ca4e;
+            box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.280);
+        }
+
+        .cardd {
+            display: none;
+            width: 600px;
+            height: 150px;
+            padding: 0.5rem;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(8px);
+            transform: skewX(10deg);
+            border-radius: 15px;
+            border-bottom: 3px solid rgba(0, 0, 0, 0.440);
+            border-left: 2px rgba(0, 0, 0, 0.545) outset;
+            box-shadow: 40px 50px 30px rgba(0, 0, 0, 0.280);
+            transition: 0.4s;
+            overflow: hidden;
+            color: white;
+            position: fixed;
+            top: 15%;
+            left: 34%;
+        }
+
+        .cardd:hover {
+            height: 400px;
+            transform: skew(0deg);
+        }
+
+        .alignd {
+            padding: 1rem;
+            display: flex;
+            flex-direction: row;
+            gap: 5px;
+            align-self: flex-start;
+        }
+
+        .redd {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #ff605c;
+            box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.280);
+        }
+
+        .yellowd {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #ffbd44;
+            box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.280);
+        }
+
+        .greend {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #00ca4e;
+            box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.280);
+        }
+
+        .cardd h1 {
+            text-align: center;
+            margin: 1.3rem;
+            color: rgb(255, 255, 255);
+            text-shadow: 10px 5px 10px rgba(0, 0, 0, 0.573);
+        }
+
+        .card3 {
+            --main-color: #fff;
+            --submain-color: #ccc;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            position: relative;
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-radius: 20px;
+            background: var(--bg-color);
+        }
+
+        .card__img {
+            height: 192px;
+            width: 100%;
+            border-bottom: 3px solid rgba(0, 0, 0, 0.440);
+            border-left: 2px rgba(0, 0, 0, 0.545) outset;
+            box-shadow: 3px 8px 5px 0px rgba(0, 0, 0, 0.2);
+        }
+
+        .card__img svg {
+            height: 100%;
+            border-radius: 20px 20px 0 0;
+        }
+
+        .card__avatar {
+            position: absolute;
+            width: 114px;
+            height: 114px;
+            background: var(--bg-color);
+            border-radius: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            top: calc(50% - 57px);
+            text-shadow: 10px 5px 10px rgba(0, 0, 0, 0.573);
+        }
+
+        .card__avatar svg {
+            width: 100px;
+            height: 100px;
+        }
+
+        .card__title {
+            margin-top: 60px;
+            font-weight: 500;
+            font-size: 18px;
+            color: var(--main-color);
+            text-shadow: 10px 5px 10px rgba(0, 0, 0, 0.573);
+        }
+
+        .card__subtitle {
+            margin-top: 10px;
+            font-weight: 400;
+            font-size: 15px;
+            color: var(--submain-color);
+            text-shadow: 10px 5px 10px rgba(0, 0, 0, 0.573);
+        }
+
+        .carddd {
+            display: none;
+            width: 600px;
+            height: 200px;
+            padding: 0.5rem;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(8px);
+            transform: skewX(10deg);
+            border-radius: 15px;
+            border-bottom: 3px solid rgba(0, 0, 0, 0.440);
+            border-left: 2px rgba(0, 0, 0, 0.545) outset;
+            box-shadow: 40px 50px 30px rgba(0, 0, 0, 0.280);
+            transition: 0.4s;
+            overflow: hidden;
+            color: white;
+            position: fixed;
+            top: 15%;
+            left: 34%;
+        }
+
+        .carddd:hover {
+            height: 420px;
+            transform: skew(0deg);
+        }
+
+        .aligdd {
+            padding: 1rem;
+            display: flex;
+            flex-direction: row;
+            gap: 5px;
+            align-self: flex-start;
+        }
+
+        .reddd {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #ff605c;
+            box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.280);
+        }
+
+        .yellowdd {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #ffbd44;
+            box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.280);
+        }
+
+        .greendd {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #00ca4e;
+            box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.280);
+        }
+
+        .carddd h1 {
+            text-align: center;
+            margin: 1.3rem;
+            color: rgb(255, 255, 255);
+            text-shadow: 10px 5px 10px rgba(0, 0, 0, 0.573);
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card4 {
+            width: 350px;
+            height: 300px;
+            color: white;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 30px;
+            overflow: visible;
+        }
+
+        .card4 .item {
+            border-radius: 10px;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .item:hover {
+            transform: scale(1.5);
+            transition: all 350ms ease-in-out;
+        }
+
+        .item svg {
+            width: 40px;
+            height: 40px;
+            margin-bottom: 7px;
+        }
+
+        .item--1 {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(8px);
+            border-bottom: 3px solid rgba(255, 255, 255, 0.440);
+            border-left: 2px rgba(255, 255, 255, 0.545) outset;
+            box-shadow: 3px 8px 5px 0px rgba(0, 0, 0, 0.2);
+        }
+
+        .item--2 {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(8px);
+            border-bottom: 3px solid rgba(255, 255, 255, 0.440);
+            border-left: 2px rgba(255, 255, 255, 0.545) outset;
+            box-shadow: 3px 8px 5px 0px rgba(0, 0, 0, 0.2);
+        }
+
+        .item--3 {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(8px);
+            border-bottom: 3px solid rgba(255, 255, 255, 0.440);
+            border-left: 2px rgba(255, 255, 255, 0.545) outset;
+            box-shadow: 3px 8px 5px 0px rgba(0, 0, 0, 0.2);
+        }
+
+        .item--4 {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(8px);
+            border-bottom: 3px solid rgba(255, 255, 255, 0.440);
+            border-left: 2px rgba(255, 255, 255, 0.545) outset;
+            box-shadow: 3px 8px 5px 0px rgba(0, 0, 0, 0.2);
+        }
+
+        .quantity {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .text {
+            font-size: 12px;
+            font-family: inherit;
+            font-weight: 600;
+        }
+
+        .text--1 {
+            color: rgba(255, 255, 255);
+        }
+
+        .text--2 {
+            color: rgba(255, 255, 255);
+        }
+
+        .text--3 {
+            color: rgba(255, 255, 255);
+        }
+
+        .text--4 {
+            color: rgba(255, 255, 255);
+        }
+
+        .cardddd {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            width: 600px;
+            height: 130px;
+            padding: 0.5rem;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(8px);
+            transform: skewX(10deg);
+            border-radius: 15px;
+            border-bottom: 3px solid rgba(0, 0, 0, 0.440);
+            border-left: 2px rgba(0, 0, 0, 0.545) outset;
+            box-shadow: 40px 50px 30px rgba(0, 0, 0, 0.280);
+            transition: 0.4s;
+            overflow: hidden;
+            color: white;
+            position: fixed;
+            top: 15%;
+            left: 34%;
+        }
+
+        .cardddd:hover {
+            height: 460px;
+            transform: skew(0deg);
+        }
+
+        .alignddd {
+            padding: 1rem;
+            display: flex;
+            flex-direction: row;
+            gap: 5px;
+            align-self: flex-start;
+        }
+
+        .redddd {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #ff605c;
+            box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.280);
+        }
+
+        .yellowddd {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #ffbd44;
+            box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.280);
+        }
+
+        .greenddd {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #00ca4e;
+            box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.280);
+        }
+
+        .cardddd h1 {
+            text-align: center;
+            margin: 1.3rem;
+            color: rgb(255, 255, 255);
+            text-shadow: 10px 5px 10px rgba(0, 0, 0, 0.573);
+        }
+
+        .buttongit {
+            position: relative;
+            border: none;
+            margin: 10px;
+            background-color: transparent;
+        }
+
+        .buttongit a {
+            width: 80px;
+            height: 80px;
+            border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-right: 1px solid rgba(255, 255, 255, 0.2);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 5px 45px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(2px);
+            transition: 0.5s;
+            overflow: hidden;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .buttongit a:hover {
+            transform: translateY(-20px);
+        }
+
+        .buttongit a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50px;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.5);
+            transform: skewX(45deg) translateX(150px);
+            transition: 0.5s ease;
+        }
+
+        .buttongit a:hover::before {
+            transform: skewX(45deg) translateX(-150px);
+        }
+
+        .buttongit a svg {
+            width: 3em;
+        }
+
+        .buttonedge {
+            position: relative;
+            border: none;
+            margin: 10px;
+            background-color: transparent;
+        }
+
+        .buttonedge a {
+            width: 65px;
+            height: 65px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-right: 1px solid rgba(255, 255, 255, 0.2);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 5px 45px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(2px);
+            transition: 0.5s;
+            overflow: hidden;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .buttonedge a:hover {
+            transform: translateY(-20px);
+        }
+
+        .buttonedge a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50px;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.5);
+            transform: skewX(45deg) translateX(150px);
+            transition: 0.5s ease;
+        }
+
+        .buttonedge a:hover::before {
+            transform: skewX(45deg) translateX(-150px);
+        }
+
+        .buttonedge a svg {
+            width: 2em;
+        }
+
+        .container-ask {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+            position: relative;
+            color: white;
+            transform: translateX(200px);
+        }
+
+        .container-ask .label-ask {
+            font-size: 15px;
+            padding-left: 10px;
+            position: absolute;
+            top: 13px;
+            transition: 0.3s;
+            pointer-events: none;
+        }
+
+        .ask-input {
+            width: 200px;
+            height: 50px;
+            border: none;
+            outline: none;
+            padding: 0px 7px;
+            border-radius: 6px;
+            color: #fff;
+            font-size: 15px;
+            background-color: transparent;
+            box-shadow: 3px 3px 10px rgba(0,0,0,1),
+            -1px -1px 6px rgba(255, 255, 255, 0.4);
+        }
+
+        .ask-input:focus {
+            border: 2px solid transparent;
+            color: #fff;
+            box-shadow: 3px 3px 10px rgba(0,0,0,1),
+            -1px -1px 6px rgba(255, 255, 255, 0.4),
+            inset 3px 3px 10px rgba(0,0,0,1),
+            inset -1px -1px 6px rgba(255, 255, 255, 0.4);
+        }
+
+        .container-ask .ask-input:valid ~ .label-ask,
+        .container-ask .ask-input:focus ~ .label-ask {
+            transition: 0.3s;
+            padding-left: 2px;
+            transform: translateY(-35px);
+        }
+
+        .container-ask .ask-input:valid,
+        .container-ask .ask-input:focus {
+            box-shadow: 3px 3px 10px rgba(0,0,0,1),
+            -1px -1px 6px rgba(255, 255, 255, 0.4),
+            inset 3px 3px 10px rgba(0,0,0,1),
+            inset -1px -1px 6px rgba(255, 255, 255, 0.4);
+        }
+
+        .img-out {
+            max-width: 100%;
+            max-height: 300px;
+            margin: 0 auto;
+            border-radius: 15px;
+            box-shadow: 3px 8px 5px 0px rgba(0, 0, 0, 0.2);
+        }
+
+        .img-out-out {
+            max-width: 100%;
+            max-height: 300px;
+            margin: 0 auto;
+            border-radius: 15px;
+            border-bottom: 3px solid rgba(0, 0, 0, 0.440);
+            border-left: 2px rgba(0, 0, 0, 0.545) outset;
+            box-shadow: 3px 8px 5px 0px rgba(0, 0, 0, 0.2);
+        }
+
+        pre {
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(8px);
+            color: #33FFCC;
+            padding: 10px;
+            border-radius: 5px;
+            overflow: auto;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="chat-container">
+        <div class="card">
+            <div class="align">
+                <span class="red"></span>
+                <span class="yellow"></span>
+                <span class="green"></span>
+            </div>
+
+            <h1>MAVIS</h1>
+
+            <p style="font-size: 12px;">MAVIS ist eine KI-gesteuerte Anwendung, die Ihnen ermöglicht, visuelle Daten wie Bilder (Formate: PNG, JPG, JPEG und GIF) zu analysieren und darauf basierend interaktive Antworten zu generieren.
+                Mit MAVIS können Sie komplexe mathematische Berechnungen durchführen, programmiertechnische Aufgaben lösen und professionelle Grafiken erstellen.</p>
+                       <p style="font-size: 12px;"><strong>Wichtig:</strong> Lassen Sie Formeln stets in LaTeX darstellen, um eine präzise und ansprechende Formatierung zu gewährleisten.
+                        Fordern Sie MAVIS dazu auf, Code immer in Python zu schreiben, da nur dieser von der Benutzeroberfläche unterstützt wird.
+                           Bitten Sie MAVIS, Grafiken mithilfe von Matplotlib zu erstellen, da die Benutzeroberfläche ausschließlich HTML, LaTeX und Python (Version 3.13 mit den Frameworks Matplotlib, NumPy, Math, SymPy und Pandas) unterstützt.</p>
+                        <p style="font-size: 12px;"><strong>Wichtig:</strong>Diese Software funktioniert nur mit Microsoft Edge!</p>
+
+            <div class="info" style="display: flex; justify-content: center; align-items: center;">
+                <button class="buttonedge">
+                    <a href="https://www.microsoft.com/edge">
+                        <svg width="2.5em" height="2.5em" viewBox="0 0 256 256" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <defs> <linearGradient id="linearGradient-1" gradientUnits="userSpaceOnUse" x1="63.3343" y1="757.83" x2="241.6165" y2="757.83" gradientTransform="matrix(1 0 0 1 -4.63 -580.8098)"> <stop offset="0" style="stop-color:#0C59A4"></stop> <stop offset="1" style="stop-color:#114A8B"></stop> </linearGradient> <radialGradient id="radialGradient-1" cx="161.83" cy="788.4008" r="95.38" gradientTransform="matrix(0.9999 0 0 0.9498 -4.6217 -570.3868)" gradientUnits="userSpaceOnUse"> <stop offset="0.72" style="stop-color:#000000;stop-opacity:0"></stop> <stop offset="0.95" style="stop-color:#000000;stop-opacity:0.53"></stop> <stop offset="1" style="stop-color:#000000"></stop> </radialGradient> <linearGradient id="linearGradient-2" gradientUnits="userSpaceOnUse" x1="157.4013" y1="680.5561" x2="46.0276" y2="801.8683" gradientTransform="matrix(1 0 0 1 -4.63 -580.8098)"> <stop offset="0" style="stop-color:#1B9DE2"></stop> <stop offset="0.16" style="stop-color:#1595DF"></stop> <stop offset="0.67" style="stop-color:#0680D7"></stop> <stop offset="1" style="stop-color:#0078D4"></stop> </linearGradient> <radialGradient id="radialGradient-2" cx="-773.6357" cy="746.7146" r="143.24" gradientTransform="matrix(0.15 -0.9898 0.8 0.12 -410.7182 -656.3412)" gradientUnits="userSpaceOnUse"> <stop offset="0.76" style="stop-color:#000000;stop-opacity:0"></stop> <stop offset="0.95" style="stop-color:#000000;stop-opacity:0.5"></stop> <stop offset="1" style="stop-color:#000000"></stop> </radialGradient> <radialGradient id="radialGradient-3" cx="230.5926" cy="-106.0381" r="202.4299" gradientTransform="matrix(-3.999750e-02 0.9998 -2.1299 -7.998414e-02 -190.7749 -191.6354)" gradientUnits="userSpaceOnUse"> <stop offset="0" style="stop-color:#35C1F1"></stop> <stop offset="0.11" style="stop-color:#34C1ED"></stop> <stop offset="0.23" style="stop-color:#2FC2DF"></stop> <stop offset="0.31" style="stop-color:#2BC3D2"></stop> <stop offset="0.67" style="stop-color:#36C752"></stop> </radialGradient> <radialGradient id="radialGradient-4" cx="536.3567" cy="-117.7029" r="97.34" gradientTransform="matrix(0.28 0.9598 -0.78 0.23 -1.9279 -410.3179)" gradientUnits="userSpaceOnUse"> <stop offset="0" style="stop-color:#66EB6E"></stop> <stop offset="1" style="stop-color:#66EB6E;stop-opacity:0"></stop> </radialGradient> </defs> <g> <path fill="url(#linearGradient-1)" d="M231,190.5c-3.4,1.8-6.9,3.4-10.5,4.7c-11.5,4.3-23.6,6.5-35.9,6.5c-47.3,0-88.5-32.5-88.5-74.3 c0.1-11.4,6.4-21.9,16.4-27.3c-42.8,1.8-53.8,46.4-53.8,72.5c0,73.9,68.1,81.4,82.8,81.4c7.9,0,19.8-2.3,27-4.6l1.3-0.4 c27.6-9.5,51-28.1,66.6-52.8c1.2-1.9,0.6-4.3-1.2-5.5C233.9,189.9,232.3,189.8,231,190.5z"></path> <path opacity="0.35" fill="url(#radialGradient-1)" enable-background="new " d="M231,190.5c-3.4,1.8-6.9,3.4-10.5,4.7 c-11.5,4.3-23.6,6.5-35.9,6.5c-47.3,0-88.5-32.5-88.5-74.3c0.1-11.4,6.4-21.9,16.4-27.3c-42.8,1.8-53.8,46.4-53.8,72.5 c0,73.9,68.1,81.4,82.8,81.4c7.9,0,19.8-2.3,27-4.6l1.3-0.4c27.6-9.5,51-28.1,66.6-52.8c1.2-1.9,0.6-4.3-1.2-5.5 C233.9,189.9,232.3,189.8,231,190.5z"></path> <path fill="url(#linearGradient-2)" d="M105.7,241.4c-8.9-5.5-16.6-12.8-22.7-21.3c-26.3-36-18.4-86.5,17.6-112.8c3.8-2.7,7.7-5.2,11.9-7.2 c3.1-1.5,8.4-4.1,15.5-4c10.1,0.1,19.6,4.9,25.7,13c4,5.4,6.3,11.9,6.4,18.7c0-0.2,24.5-79.6-80-79.6c-43.9,0-80,41.7-80,78.2 c-0.2,19.3,4,38.5,12.1,56c27.6,58.8,94.8,87.6,156.4,67.1C147.5,256.1,124.5,253.2,105.7,241.4L105.7,241.4z"></path> <path opacity="0.41" fill="url(#radialGradient-2)" enable-background="new " d="M105.7,241.4c-8.9-5.5-16.6-12.8-22.7-21.3 c-26.3-36-18.4-86.5,17.6-112.8c3.8-2.7,7.7-5.2,11.9-7.2c3.1-1.5,8.4-4.1,15.5-4c10.1,0.1,19.6,4.9,25.7,13 c4,5.4,6.3,11.9,6.4,18.7c0-0.2,24.5-79.6-80-79.6c-43.9,0-80,41.7-80,78.2c-0.2,19.3,4,38.5,12.1,56 c27.6,58.8,94.8,87.6,156.4,67.1C147.5,256.1,124.5,253.2,105.7,241.4L105.7,241.4z"></path> <path fill="url(#radialGradient-3)" d="M152.3,148.9c-0.8,1-3.3,2.5-3.3,5.7c0,2.6,1.7,5.1,4.7,7.2c14.4,10,41.5,8.7,41.6,8.7 c10.7,0,21.1-2.9,30.3-8.3c18.8-11,30.4-31.1,30.4-52.9c0.3-22.4-8-37.3-11.3-43.9C223.5,23.9,177.7,0,128,0C58,0,1,56.2,0,126.2 c0.5-36.5,36.8-66,80-66c3.5,0,23.5,0.3,42,10.1c16.3,8.6,24.9,18.9,30.8,29.2c6.2,10.7,7.3,24.1,7.3,29.5 C160.1,134.3,157.4,142.3,152.3,148.9z"></path> <path fill="url(#radialGradient-4)" d="M152.3,148.9c-0.8,1-3.3,2.5-3.3,5.7c0,2.6,1.7,5.1,4.7,7.2c14.4,10,41.5,8.7,41.6,8.7 c10.7,0,21.1-2.9,30.3-8.3c18.8-11,30.4-31.1,30.4-52.9c0.3-22.4-8-37.3-11.3-43.9C223.5,23.9,177.7,0,128,0C58,0,1,56.2,0,126.2 c0.5-36.5,36.8-66,80-66c3.5,0,23.5,0.3,42,10.1c16.3,8.6,24.9,18.9,30.8,29.2c6.2,10.7,7.3,24.1,7.3,29.5 C160.1,134.3,157.4,142.3,152.3,148.9z"></path> </g> </g></svg>
+                    </a>
+                </button>
+            </div>
+
+                <script>
+                    // Check if the browser is Edge
+                    var isEdge = /Edge/.test(navigator.userAgent);
+                    if (!isEdge) {
+                        document.querySelector(".warning").style.display = "block";
+                    } else {
+                        document.querySelector(".warning").style.display = "none";
+                    }
+                </script>
+
+        </div>
+        <div class="cardddd">
+            <div class="alignddd">
+                <span class="redddd"></span>
+                <span class="yellowddd"></span>
+                <span class="greenddd"></span>
+            </div>
+            <h1>MAVIS Infos</h1>
+            <p>
+                Mehr Infos unter: <br><br>
+
+                <button class="buttongit">
+                    <a href="https://github.com/Peharge/MAVIS">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="2.5em" height="2.5em" viewBox="0 0 1614 1689" stroke-width="6.875" fill="currentColor" stroke="#042433">
+                          <g transform="translate(-1389 -393)">
+                            <path d="M2518.46 407.665 3003 1594.62 2662.79 1594.62 2351.21 822.411ZM1878.35 393 2381.46 1635.86 2203.45 2082 1880.42 1280.01 1754.64 1594.62 1389 1594.62Z" fill="#FFFFFF" fill-rule="evenodd"/>
+                          </g>
+                        </svg>
+                    </a>
+                </button>
+            </p>
+            <p>
+                Hir kannst du dir die Szenen anzeigen lassen:<br><br>
+
+                <div class="container-ask">
+                  <input required type="text" name="text" class="ask-input" id="askInput">
+                  <label class="label-ask">Search...</label>
+                  <div id="sceneOutput"></div>
+                </div>
+            </p>
+        </div>
+        <div class="cardd">
+            <div class="alignd">
+                <span class="redd"></span>
+                <span class="yellowd"></span>
+                <span class="greend"></span>
+            </div>
+            <div class="card3">
+                <div class="card__img" style="width: 100%; aspect-ratio: 2 / 1; overflow: hidden; border-radius: 15px;">
+                    <img src="/static/images/edge.jpg" alt="Beschreibung des Bildes" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div class="card__avatar"><svg width="128px" height="128px" viewBox="0 0 61.7998 61.7998" xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title></title> <g data-name="Layer 2" id="Layer_2"> <g data-name="—ÎÓÈ 1" id="_ÎÓÈ_1"> <circle cx="30.8999" cy="30.8999" fill="#ffc200" r="30.8999"></circle> <path d="M52.587 52.908a30.895 30.895 0 0 1-43.667-.291 9.206 9.206 0 0 1 4.037-4.832 19.799 19.799 0 0 1 4.075-2.322c-2.198-7.553 3.777-11.266 6.063-12.335 0 3.487 3.265 1.173 7.317 1.217 3.336.037 9.933 3.395 9.933-1.035 3.67 1.086 7.67 8.08 4.917 12.377a17.604 17.604 0 0 1 3.181 2.002 10.192 10.192 0 0 1 4.144 5.22z" fill="#677079" fill-rule="evenodd"></path> <path d="M24.032 38.68l14.92.09v3.437l-.007.053a2.784 2.784 0 0 1-.07.462l-.05.341-.03.071c-.966 5.074-5.193 7.035-7.803 8.401-2.75-1.498-6.638-4.197-6.947-8.972l-.013-.059v-.2a8.897 8.897 0 0 1-.004-.207c0 .036.003.07.004.106z" fill="#f9dca4" fill-rule="evenodd"></path> <path d="M38.953 38.617v4.005a7.167 7.167 0 0 1-.095 1.108 6.01 6.01 0 0 1-.38 1.321c-5.184 3.915-13.444.704-14.763-5.983z" fill-rule="evenodd" opacity="0.11"></path> <path d="M18.104 25.235c-4.94 1.27-.74 7.29 2.367 7.264a19.805 19.805 0 0 1-2.367-7.264z" fill="#f9dca4" fill-rule="evenodd"></path> <path d="M43.837 25.235c4.94 1.27.74 7.29-2.368 7.263a19.8 19.8 0 0 0 2.368-7.263z" fill="#f9dca4" fill-rule="evenodd"></path> <path d="M30.733 11.361c20.523 0 12.525 32.446 0 32.446-11.83 0-20.523-32.446 0-32.446z" fill="#ffe8be" fill-rule="evenodd"></path> <path d="M21.047 22.105a1.738 1.738 0 0 1-.414 2.676c-1.45 1.193-1.503 5.353-1.503 5.353-.56-.556-.547-3.534-1.761-5.255s-2.032-13.763 4.757-18.142a4.266 4.266 0 0 0-.933 3.6s4.716-6.763 12.54-6.568a5.029 5.029 0 0 0-2.487 3.26s6.84-2.822 12.54.535a13.576 13.576 0 0 0-4.145 1.947c2.768.076 5.443.59 7.46 2.384a3.412 3.412 0 0 0-2.176 4.38c.856 3.503.936 6.762.107 8.514-.829 1.752-1.22.621-1.739 4.295a1.609 1.609 0 0 1-.77 1.214c-.02.266.382-3.756-.655-4.827-1.036-1.07-.385-2.385.029-3.163 2.89-5.427-5.765-7.886-10.496-7.88-4.103.005-14 1.87-10.354 7.677z" fill="#8a5c42" fill-rule="evenodd"></path> <path d="M19.79 49.162c.03.038 10.418 13.483 22.63-.2-1.475 4.052-7.837 7.27-11.476 7.26-6.95-.02-10.796-5.6-11.154-7.06z" fill="#434955" fill-rule="evenodd"></path> <path d="M36.336 61.323c-.41.072-.822.135-1.237.192v-8.937a.576.576 0 0 1 .618-.516.576.576 0 0 1 .619.516v8.745zm-9.82.166q-.622-.089-1.237-.2v-8.711a.576.576 0 0 1 .618-.516.576.576 0 0 1 .62.516z" fill="#e6e6e6" fill-rule="evenodd"></path> </g> </g> </g></svg></div>
+                <div class="card__title">Mr. X</div>
+                <div class="card__subtitle">Gast</div>
+                <div class="card__wrapper">
+                </div>
+            </div>
+        </div>
+        <div class="carddd">
+            <div class="aligdd">
+                <span class="reddd"></span>
+                <span class="yellowdd"></span>
+                <span class="greendd"></span>
+            </div>
+            <div class="container">
+                <div class="card4">
+                  <div class="item item--1">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 1614 1689" stroke-width="6.875" fill="currentColor" stroke="#042433">
+                      <g transform="translate(-1389 -393)">
+                        <path d="M2518.46 407.665 3003 1594.62 2662.79 1594.62 2351.21 822.411ZM1878.35 393 2381.46 1635.86 2203.45 2082 1880.42 1280.01 1754.64 1594.62 1389 1594.62Z" fill="#FFFFFF" fill-rule="evenodd"/>
+                      </g>
+                    </svg>
+                    <span class="quantity"> Mavis 1B </span>
+                    <span class="text text--1"></span>
+                  </div>
+                  <div class="item item--2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 1614 1689" stroke-width="6.875" fill="currentColor" stroke="#042433">
+                      <g transform="translate(-1389 -393)">
+                        <path d="M2518.46 407.665 3003 1594.62 2662.79 1594.62 2351.21 822.411ZM1878.35 393 2381.46 1635.86 2203.45 2082 1880.42 1280.01 1754.64 1594.62 1389 1594.62Z" fill="#FFFFFF" fill-rule="evenodd"/>
+                      </g>
+                    </svg>
+                    <span class="quantity"> Mavis 3B </span>
+                    <span class="text text--2"></span>
+                  </div>
+                  <div class="item item--3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 1614 1689" stroke-width="6.875" fill="currentColor" stroke="#042433">
+                      <g transform="translate(-1389 -393)">
+                        <path d="M2518.46 407.665 3003 1594.62 2662.79 1594.62 2351.21 822.411ZM1878.35 393 2381.46 1635.86 2203.45 2082 1880.42 1280.01 1754.64 1594.62 1389 1594.62Z" fill="#FFFFFF" fill-rule="evenodd"/>
+                      </g>
+                    </svg>
+                    <span class="quantity"> Mavis 11B </span>
+                    <span class="text text--3">Vision</span>
+                  </div>
+                  <div class="item item--4">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 1614 1689" stroke-width="6.875" fill="currentColor" stroke="#042433">
+                      <g transform="translate(-1389 -393)">
+                        <path d="M2518.46 407.665 3003 1594.62 2662.79 1594.62 2351.21 822.411ZM1878.35 393 2381.46 1635.86 2203.45 2082 1880.42 1280.01 1754.64 1594.62 1389 1594.62Z" fill="#FFFFFF" fill-rule="evenodd"/>
+                      </g>
+                    </svg>
+                    <span class="quantity"> Mavis 90B </span>
+                    <span class="text text--4">Vision</span>
+                  </div>
+                </div>
+            </div>
+        </div>
+        <div class="chat-output" id="chat-content"></div>
+        <div class="card2" id="loading">
+        <div class="loader" id="loaderid">
+            <div class="dots-container">
+                <div class="dot-row">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                <div class="dot-row">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                <div class="dot-row">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                <div class="dot-row">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                <div class="dot-row">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                <div class="dot-row">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                <div class="dot-row">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                <div class="dot-row">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                <div class="dot-row">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                <div class="dot-row">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                <div class="dot-row">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                <div class="dot-row">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                <div class="dot-row">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                <div class="dot-row">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                <div class="dot-row">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                <div class="dot-row">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                <div class="dot-row">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                <div class="dot-row">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                <div class="dot-row">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                <div class="dot-row">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                <div class="dot-row">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                <div class="dot-row">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                <div class="dot-row">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                <div class="dot-row">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                <div class="dot-row">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                <div class="dot-row">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                <div class="dot-row">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                <div class="dot-row">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                <div class="dot-row">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                <div class="dot-row">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                <div class="dot-row">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                <div class="dot-row">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                <div class="dot-row">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                <div class="dot-row">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                <div class="dot-row">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                <div class="dot-row">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                <div class="dot-row">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                <div class="dot-row">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                <div class="dot-row">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                <div class="dot-row">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                <div class="dot-row">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                <div class="dot-row">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                <div class="dot-row">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                <div class="dot-row">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                <div class="dot-row">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+            </div>
+            <div class="center-div">
+                <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 1614 1689" stroke-width="6.875" fill="currentColor" stroke="#042433">
+                  <g transform="translate(-1389 -393)">
+                    <path d="M2518.46 407.665 3003 1594.62 2662.79 1594.62 2351.21 822.411ZM1878.35 393 2381.46 1635.86 2203.45 2082 1880.42 1280.01 1754.64 1594.62 1389 1594.62Z" fill="#FFFFFF" fill-rule="evenodd"/>
+                  </g>
+                </svg>
+            </div>
+            <div class="glass"></div>
+        </div>
+        </div>
+        <div class="button-container" id="button-containerid">
+          <button class="button-home" onclick="toggleCard()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="1.7em" height="1.7em" viewBox="0 0 1614 1689" stroke-width="6.875" fill="currentColor" stroke="#042433">
+              <g transform="translate(-1389 -393)">
+                <path d="M2518.46 407.665 3003 1594.62 2662.79 1594.62 2351.21 822.411ZM1878.35 393 2381.46 1635.86 2203.45 2082 1880.42 1280.01 1754.64 1594.62 1389 1594.62Z" fill="#FFFFFF" fill-rule="evenodd"/>
+              </g>
+            </svg>
+          </button>
+            <button class="button-search" id="button-searchid" onclick="toggleCardddd()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" aria-hidden="true" viewBox="0 0 24 24" stroke-width="2" fill="none" stroke="currentColor" class="icon2">
+                <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linejoin="round" stroke-linecap="round"></path>
+              </svg>
+            </button>
+            <button class="button-account" onclick="toggleCardd()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" stroke-width="0" fill="currentColor" stroke="currentColor" class="icon2">
+                <path d="M12 2.5a5.5 5.5 0 0 1 3.096 10.047 9.005 9.005 0 0 1 5.9 8.181.75.75 0 1 1-1.499.044 7.5 7.5 0 0 0-14.993 0 .75.75 0 0 1-1.5-.045 9.005 9.005 0 0 1 5.9-8.18A5.5 5.5 0 0 1 12 2.5ZM8 8a4 4 0 1 0 8 0 4 4 0 0 0-8 0Z"></path>
+              </svg>
+            </button>
+            <button class="button-shop" onclick="toggleCarddd()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" stroke-linejoin="round" stroke-linecap="round" viewBox="0 0 24 24" stroke-width="2" fill="none" stroke="currentColor" class="icon2">
+                <circle r="1" cy="21" cx="9"></circle>
+                <circle r="1" cy="21" cx="20"></circle>
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+              </svg>
+            </button>
+        </div>
+
+    <form id="send-form" enctype="multipart/form-data">
+            <div class="taskbar">
+                    <div class="container-usern">
+                        <input required="" type="text" id="message" class="input" name="username" required>
+                        <label class="label">MAVIS</label>
+                    </div>
+
+                    <label for="image" class="button3">
+                          <svg
+                              class="h-6 w-6 text-white/60"
+                              stroke-linejoin="round"
+                              stroke-linecap="round"
+                              stroke-width="2"
+                              stroke="currentColor"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              height="24"
+                              width="24"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2"></path>
+                              <path d="M7 9l5 -5l5 5"></path>
+                              <path d="M12 4l0 12"></path>
+                            </svg>
+                    </label>
+                    <input type="file" id="image" name="image" accept="image/*" onchange="previewImage(event)" style="display:none;">
+
+                    <br>
+                    <button type="submit" class="button2">Senden</button>
+            </div>
+
+            <div id="image-preview" class="card-image-preview" style="display:none; text-align: center;" onclick="closePreview()">
+                <div class="align-image-preview">
+                    <span class="red-image-preview"></span>
+                    <span class="yellow-image-preview"></span>
+                    <span class="green-image-preview"></span>
+                </div>
+                <img class="img-out" id="preview" src="" alt="Bild Vorschau" style="min-height: 280px; max-width: 550px; max-height: 90%; margin: 0 auto; margin-top: 0%; border-radius: 15px; box-shadow: 3px 8px 5px 0px rgba(0, 0, 0, 0.2);">
+            </div>
+    </form>
+
+    <script type="text/javascript">
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                inlineCode: [['```', '```'], ['<code>', '</code>']],
+                displayCode: [['```', '```'], ['<code>', '</code>']]
+            }
+        };
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <script>
+
+        document.getElementById("send-form").onsubmit = async function(event) {
+            event.preventDefault();
+
+            const message = document.getElementById("message").value;
+            const image = document.getElementById("image").files[0];
+
+            const formData = new FormData();
+            formData.append('message', message);
+            formData.append('image', image);
+
+            const chatContent = document.getElementById("chat-content");
+            const loadingIndicator = document.getElementById("loading");
+
+            loadingIndicator.style.display = 'block';
+
+            const response = await fetch("/send_message", {
+                method: "POST",
+                body: formData
+            });
+
+            loadingIndicator.style.display = 'none';
+
+            const data = await response.json();
+            if (data.response) {
+                chatContent.innerHTML += `
+                    <div class="user-box">
+                          <p>${message}</p>
+                    </div>
+                    <div>
+                        <img class="img-out-out" src="${data.image_url}" alt="Hochgeladenes Bild">
+                    </div>`;
+
+                chatContent.innerHTML += `
+                    <div class="chatbot-box">
+                        <p>${data.response}</p>
+                    </div>`;
+
+                chatContent.innerHTML += `
+                    <div class="chatbot-box-code">
+                        <p>${data.code}</p>
+                    </div>`;
+
+                MathJax.typeset();
+            } else {
+                chatContent.innerHTML += `<p><strong>Fehler:</strong> ${data.error}</p>`;
+            }
+
+        };
+
+        const taskBox = document.getElementById('button-containerid');
+
+        let offsetXTask, offsetYTask;
+
+        taskBox.addEventListener('mousedown', (e) => {
+            offsetXTask = e.clientX - taskBox.getBoundingClientRect().left;
+            offsetYTask = e.clientY - taskBox.getBoundingClientRect().top;
+
+            document.addEventListener('mousemove', moveTaskBox);
+            document.addEventListener('mouseup', stopMovingTaskBox);
+        });
+
+        function moveTaskBox(e) {
+            taskBox.style.left = `${e.clientX - offsetXTask}px`;
+            taskBox.style.top = `${e.clientY - offsetYTask}px`;
+        }
+
+        function stopMovingTaskBox() {
+            document.removeEventListener('mousemove', moveTaskBox);
+            document.removeEventListener('mouseup', stopMovingTaskBox);
+
+            const textarea = document.querySelector('.input');
+
+        textarea.addEventListener('input', function () {
+            this.style.height = 'auto';
+            this.style.height = `${this.scrollHeight}px`;
+        });
+
+        }
+
+        function toggleCard() {
+            const card = document.querySelector('.card');
+
+            if (card.style.display === 'none' || card.style.display === '') {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        }
+
+        function toggleCardd() {
+            const cardd = document.querySelector('.cardd');
+
+            if (cardd.style.display === 'none' || cardd.style.display === '') {
+                cardd.style.display = 'block';
+            } else {
+                cardd.style.display = 'none';
+            }
+        }
+
+        function toggleCarddd() {
+            const carddd = document.querySelector('.carddd');
+
+            if (carddd.style.display === 'none' || carddd.style.display === '') {
+                carddd.style.display = 'block';
+            } else {
+                carddd.style.display = 'none';
+            }
+        }
+
+        function toggleCardddd() {
+            const cardddd = document.querySelector('.cardddd');
+
+            if (cardddd.style.display === 'none' || cardddd.style.display === '') {
+                cardddd.style.display = 'block';
+            } else {
+                cardddd.style.display = 'none';
+            }
+        }
+
+        document.getElementById("askInput").addEventListener("keydown", function(event) {
+              if (event.key === "Enter") {
+                    event.preventDefault();
+                    loadScene();
+              }
+        });
+
+        function previewImage(event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function() {
+                  const preview = document.getElementById('preview');
+                  preview.src = reader.result;
+                  document.getElementById('image-preview').style.display = 'block';
+            };
+
+            if (file) {
+                  reader.readAsDataURL(file);
+            }
+        }
+
+        function closePreview() {
+            document.getElementById('image-preview').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

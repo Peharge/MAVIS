@@ -1,0 +1,147 @@
+# --- 1.1
+
+pip install Flask
+pip install ollama
+pip install Werkzeug
+pip install markdown
+pip install matplotlib
+pip install plotly
+pip install dash
+pip install seaborn
+pip install numpy
+pip install sympy
+pip install pandas
+pip install scipy
+# pip install tensorflow
+pip install torch
+pip install scikit-learn
+pip install transformers
+pip install geopandas
+pip install -U altair
+pip install -U vega_datasets
+pip install -U altair_viewer
+pip install ipython
+pip install altair-saver
+pip install -U kaleido
+pip install vl-convert-python
+pip install py-cpuinfo
+pip install GPUtil
+pip install requests
+pip install scipy
+
+# --- 1.2
+
+pip install qwen-vl-utils
+pip install 'accelerate>=0.26.0'
+pip install accelerate
+
+# --- 1.3
+
+pip install vllm
+pip install uvloop # noch nicht wichtig
+vllm serve "Qwen/Qwen2-VL-7B-Instruct"
+
+# or
+
+vllm serve "Qwen/Qwen2-VL-7B-Instruct" --no-uvloop
+
+# --- 1.5
+
+pip install jupyter
+
+pip install astropy
+pip install QuantLib
+pip install openmdao
+# pip install pybullet
+pip install monai
+pip install fenics
+pip install pydy
+pip install pycalculix
+pip install solidpython
+pip install pyomo
+pip install gekko
+pip install casadi
+pip install control
+# pip install rospy
+pip install h2o
+pip install pint
+pip install coolprop
+pip install pythermo
+pip install biopython
+pip install opencv-python
+pip install SimpleITK
+pip install nilearn
+pip install deepchem
+pip install pymedtermino
+pip install lifelines
+pip install rdkit
+pip install ase
+pip install chempy
+pip install shapely
+pip install fiona
+pip install cartopy
+pip install statsmodels
+pip install yfinance
+pip install QuantLib
+
+# soon
+
+pip install pyspice
+pip install networkx
+pip install schematics
+pip install schemdraw
+pip install ipywidgets
+pip install pybullet
+pip install vtk
+
+pip install diagrams
+pip install graphviz
+
+# pip install dash
+
+pip install bcrypt
+
+pip install watchdog
+
+pip install bandit
+pip install dotenv-linter
+pip install psutil
+
+pip install docx
+
+pip uninstall docx
+pip install python-docx
+
+pip install ipydrawio[all]
+
+Not bad to have: https://www.rust-lang.org/tools/install and https://visualstudio.microsoft.com/de/ (aka. Visual C++)
+https://rustup.rs/
+
+Import to do: pip uninstall jupyter-server
+pip install -U "jupyter-server<2.0.0"
+
+---
+
+pip install -U openai-whisper
+pip install coqui-tts
+pip install setuptools-rust
+choco install ffmpeg
+pip install sounddevice
+pip install playsound
+pip install pygame
+
+
+---
+
+some missing from 27.02.2025
+pip install notebook
+pip install --upgrade jupyterlab jupyter_server notebook
+pip install --upgrade notebook
+pip uninstall jupyterlab
+pip install jupyterlab
+
+--- 4.3
+
+pip install flask flask-socketio eventlet
+pip install Flask flask-socketio
+pip install PyQt6 websockets

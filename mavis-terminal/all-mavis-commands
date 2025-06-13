@@ -1,0 +1,316 @@
+    commands = {
+        "env install": "install\\install-info-mavis-4.py",
+        "install env": "install\\install-info-mavis-4.py",
+        "install mavis3": "install\\install-info-mavis-4.py", # new
+        "install mavis3.3": "install\\install-info-mavis-4.py", # new
+        "install mavis4": "install\\install-info-mavis-4.py", # new
+        "install mavis4.3": "install\\install-info-mavis-4.py", # new
+        "mavis env install": "install\\install-info-mavis-4.py",
+        "install mavis env": "install\\install-info-mavis-4.py",
+        "env update": "install\\install-info-mavis-4.py",
+        "update env": "install\\install-info-mavis-4.py",
+        "mavis env update": "install\\install-info-mavis-4.py",
+        "update mavis env": "install\\install-info-mavis-4.py",
+        "update": "update\\update-repository-windows.py",
+        "mavis update": "update\\update-repository-windows.py",
+        "update mavis": "update\\update-repository-windows.py",
+        "security": "security\\security_check-mavis-4.py",
+        "mavis security": "security\\security_check-mavis-4.py",
+        "securitycheck": "security\\security_check-mavis-4.py",
+        "info": "mavis-terminal\\info.py",
+        "mavis info": "mavis-terminal\\info.py",
+        "info mavis": "mavis-terminal\\info.py",
+        "neofetch": "mavis-terminal\\neofetch.py",
+        "fastfetch": "mavis-terminal\\neofetch.py", # new
+        "screenfetch": "mavis-terminal\\neofetch.py", # new
+        "jupyter": "run-jup\\run-jup.py",
+        "run jupyter": "run-jup\\run-jup.py",
+        "run ju": "run-jup\\run-jup.py", # new
+        "run mavis-1-5-main": "mavis-1-5-main-main.py",
+        "run mavis-1-5-math": "mavis-1-5-math-math.py",
+        "run mavis-1-5-math-pro": "mavis-1-5-math-math-pro.py",
+        "run mavis-1-5-math-ultra": "mavis-1-5-math-math-ultra.py",
+        "run mavis-1-5-math-mini": "mavis-1-5-math-math-mini.py",
+        "run mavis-1-5-math-mini-mini": "mavis-1-5-math-math-mini-mini.py",
+        "run mavis-1-5-code": "mavis-1-5-main-code.py",
+        "run mavis-1-5-code-pro": "mavis-1-5-main-code-pro.py",
+        "run mavis-1-5-code-mini": "mavis-1-5-main-code-mini.py",
+        "run mavis-1-5-code-mini-mini": "mavis-1-5-main-code-mini-mini.py",
+        "run mavis-1-5-3-math-mini-mini": "mavis-1-5-3-main-math-mini-mini.py",
+        "run mavis-1-2-main": "main-old\\mavis-1-2-main-main.py",
+        "run mavis-1-2-math": "main-old\\mavis-1-2-main-math.py",
+        "run mavis-1-2-math pro": "main-old\\mavis-1-2-main-math-pro.py",
+        "run mavis-1-2-code": "main-old\\mavis-1-2-main-code.py",
+        "run mavis-1-2-code pro": "main-old\\mavis-1-2-main-code-pro.py",
+        "run mavis-1-2-main-mini": "main-old\\mavis-1-2-main-main-mini.py",
+        "run mavis-1-2-main-mini-mini": "main-old\\mavis-1-2-main-main-mini-mini.py",
+        "run mavis-1-2-3-main": "main-old\\mavis-1-2-3-main-main.py",
+        "run mavis-1-2-3-math": "main-old\\mavis-1-2-3-main-math.py",
+        "run mavis-1-2-3-math-pro": "main-old\\mavis-1-2-3-main-math-pro.py",
+        "run mavis-1-2-3-math-ultra": "main-old\\mavis-1-2-3-main-math-ultra.py",
+        "run mavis-1-4-math": "main-old\\mavis-1-4-main-math.py",
+        "run mavis-3-main": "mavis-3-main-main.py",  # new
+        "run mavis-3-main-mini": "mavis-3-main-main-mini.py",  # new
+        "run mavis-3-math": "mavis-3-main-math.py",  # new
+        "run mavis-3-math-pro": "mavis-3-main-math-pro.py",  # new
+        "run mavis-3-math-ultra": "mavis-3-main-math-ultra.py",  # new
+        "run mavis-3-math-mini": "mavis-3-main-math-mini.py",  # new
+        "run mavis-3-math-mini-mini": "mavis-3-main-math-mini-mini.py",  # new
+        "run mavis-3-code": "mavis-3-main-code.py",  # new
+        "run mavis-3-code-pro": "mavis-3-main-code-pro.py",  # new
+        "run mavis-3-code-mini": "mavis-3-main-code-mini.py",  # new
+        "run mavis-3-code-mini-mini": "mavis-3-main-code-mini-mini.py",  # new
+        "run mavis-3-3-main": "mavis-3-3-main-main.py",  # new
+        "run mavis-3-3-main-pro": "mavis-3-3-main-main-pro.py",  # new
+        "run mavis-3-3-main-mini": "mavis-3-3-main-main-mini.py",  # new
+        "run mavis-3-3-main-mini-mini": "mavis-3-3-main-main-mini-mini.py",  # new
+        "run mavis-3-3-math": "mavis-3-3-main-math.py",  # new
+        "run mavis-3-3-math-mini": "mavis-3-3-main-math-pro.py",  # new
+        "run mavis-4": "mavis-terminal\\run-mavis-4.py", # new
+        "run mavis-4-3": "mavis-terminal\\run-mavis-4-3.py", # new
+        "run mavis-4-fast": "mavis-4-main.py",  # new
+        "run mavis-4-3-fast": "mavis-4-3-main.py",  # new
+        "run mavis-launcher-4": "mavis-terminal\\run-launcher-4.py",  # new
+        "run ollama mavis-3-main": "install\\install-ollama-mavis-3-main.py",  # new
+        "run ollama mavis-3-main-mini": "install\\install-ollama-mavis-3-main-mini.py",  # new
+        "run ollama mavis-3-math": "install\\install-ollama-mavis-3-math.py",  # new
+        "run ollama mavis-3-math-pro": "install\\install-ollama-mavis-3-math.py",  # new
+        "run ollama mavis-3-math-ultra": "install\\install-ollama-mavis-3-math.py",  # new
+        "run ollama mavis-3-math-mini": "install\\install-ollama-mavis-3-math.py",  # new
+        "run ollama mavis-3-math-mini-mini": "install\\install-ollama-mavis-3-math.py",  # new
+        "run ollama mavis-3-code": "install\\install-ollama-mavis-3-code.py",  # new
+        "run ollama mavis-3-code-pro": "install\\install-ollama-mavis-3-code.py",  # new
+        "run ollama mavis-3-code-mini": "install\\install-ollama-mavis-3-code.py",  # new
+        "run ollama mavis-3-code-mini-mini": "install\\install-ollama-mavis-3-code.py",  # new
+        "run ollama mavis-3-3-main": "install\\install-ollama-mavis-3-3-main.py",  # new
+        "run ollama mavis-3-3-main-pro": "install\\install-ollama-mavis-3-3-main-pro.py",  # new
+        "run ollama mavis-3-3-main-mini": "install\\install-ollama-mavis-3-3-main-mini.py",  # new
+        "run ollama mavis-3-3-main-mini-mini": "install\\install-ollama-mavis-3-3-main-mini-mini.py",  # new
+        "run ollama mavis-3-3-math": "install\\install-ollama-mavis-3-3-math.py",  # new
+        "run ollama mavis-3-3-math-mini": "install\\install-ollama-mavis-3-3-math-mini.py",  # new
+        "run ollama mavis-4": "install\\install-ollama-mavis-4.py",  # new
+        "install ollama mavis-1-5-main": "install\\install-ollama-mavis-1-5-main.py",
+        "install ollama mavis-1-5-math": "install\\install-ollama-mavis-1-5-math.py",
+        "install ollama mavis-1-5-math-pro": "install\\install-ollama-mavis-1-5-math-pro.py",
+        "install ollama mavis-1-5-math-ultra": "install\\install-ollama-mavis-1-5-math-ultra.py",
+        "install ollama mavis-1-5-math-mini": "install\\install-ollama-mavis-1-5-math-mini.py",
+        "install ollama mavis-1-5-math-mini-mini": "install\\install-ollama-mavis-1-5-math-mini-mini.py",
+        "install ollama mavis-1-5-code": "install\\install-ollama-mavis-1-5-code.py",
+        "install ollama mavis-1-5-code-pro": "install\\install-ollama-mavis-1-5-code-pro.py",
+        "install ollama mavis-1-5-code-mini": "install\\install-ollama-mavis-1-5-code-mini.py",
+        "install ollama mavis-1-5-code-mini-mini": "install\\install-ollama-mavis-1-5-code-mini-mini.py",
+        "install ollama mavis-1-5-3-math-mini-mini": "install\\install-ollama-mavis-1-5-3-math-mini-mini.py",
+        "install ollama mavis-3-main": "install\\install-ollama-mavis-3-main.py", # new
+        "install ollama mavis-3-main-mini": "install\\install-ollama-mavis-3-main-mini.py", # new
+        "install ollama mavis-3-math": "install\\install-ollama-mavis-3-math.py", # new
+        "install ollama mavis-3-math-pro": "install\\install-ollama-mavis-3-math.py", # new
+        "install ollama mavis-3-math-ultra": "install\\install-ollama-mavis-3-math.py", # new
+        "install ollama mavis-3-math-mini": "install\\install-ollama-mavis-3-math.py", # new
+        "install ollama mavis-3-math-mini-mini": "install\\install-ollama-mavis-3-math.py", # new
+        "install ollama mavis-3-code": "install\\install-ollama-mavis-3-code.py", # new
+        "install ollama mavis-3-code-pro": "install\\install-ollama-mavis-3-code.py", # new
+        "install ollama mavis-3-code-mini": "install\\install-ollama-mavis-3-code.py", # new
+        "install ollama mavis-3-code-mini-mini": "install\\install-ollama-mavis-3-code.py", # new
+        "install ollama mavis-3-3-main": "install\\install-ollama-mavis-3-3-main.py", # new
+        "install ollama mavis-3-3-main-pro": "install\\install-ollama-mavis-3-3-main-pro.py", # new
+        "install ollama mavis-3-3-main-mini": "install\\install-ollama-mavis-3-3-main-mini.py", # new
+        "install ollama mavis-3-3-main-mini-mini": "install\\install-ollama-mavis-3-3-main-mini-mini.py", # new
+        "install ollama mavis-3-3-math": "install\\install-ollama-mavis-3-3-math.py", # new
+        "install ollama mavis-3-3-math-mini": "install\\install-ollama-mavis-3-3-math-mini.py", # new
+        "install ollama mavis-4": "install\\install-ollama-mavis-4.py",  # new
+        "change models mavis-4": "install\\install-ollama-mavis-4.py",  # new
+        "change models": "install\\install-ollama-mavis-4.py",  # new
+        "grafana": "run-grafana\\run-grafana.py",
+        "run grafana": "run-grafana\\run-grafana.py",
+        "install grafana": "run-grafana\\run-grafana.py",
+        "account": "account\\account.py",
+        "run deepseek-r1:1.5b": "mavis-terminal\\deepseek-r1-1-5b.py",
+        "run deepseek-r1:7b": "mavis-terminal\\deepseek-r1-7b.py",
+        "run deepseek-r1:8b": "mavis-terminal\\deepseek-r1-8b.py",
+        "run deepseek-r1:14b": "mavis-terminal\\deepseek-r1-14b.py",
+        "run deepseek-r1:32b": "mavis-terminal\\deepseek-r1-32b.py",
+        "run deepseek-r1:70b": "mavis-terminal\\deepseek-r1-70b.py",
+        "run deepseek-r1:671b": "mavis-terminal\\deepseek-r1-671b.py",
+        "run deepscaler": "mavis-terminal\\deepscaler.py",
+        "run llama3.1:8b": "mavis-terminal\\llama-3-1-8b.py",
+        "run llama3.1:70b": "mavis-terminal\\llama-3-1-70b.py",
+        "run llama3.1:405": "mavis-terminal\\llama-3-1-405b.py",
+        "run llama3.2:1b": "mavis-terminal\\llama-3-2-1b.py",
+        "run llama3.2:3b": "mavis-terminal\\llama-3-2-3b.py",
+        "run llama3.3": "mavis-terminal\\llama-3-3.py",
+        "run llama3:8b": "mavis-terminal\\llama-3-8b.py",
+        "run llama3:70b": "mavis-terminal\\llama-3-70b.py",
+        "run mistral": "mavis-terminal\\mistral.py",
+        "run mistral-large": "mavis-terminal\\mistral-large.py", #new
+        "run mistral-nemo": "mavis-terminal\\mistral-nemo.py", #new
+        "run mistral-openorca": "mavis-terminal\\mistral-openorca.py", #new
+        "run mistral-small:22b": "mavis-terminal\\mistral-small-22b.py", #new
+        "run mistral-small:24b": "mavis-terminal\\mistral-small-24b.py", #new
+        "run phi4": "mavis-terminal\\phi-4.py",
+        "run qwen2.5:0.5b": "mavis-terminal\\qwen-2-5-0.5b.py",
+        "run qwen2.5:1.5b": "mavis-terminal\\qwen-2-5-1.5b.py",
+        "run qwen2.5:3b": "mavis-terminal\\qwen-2-5-3b.py",
+        "run qwen2.5:7b": "mavis-terminal\\qwen-2-5-7b.py",
+        "run qwen2.5:14b": "mavis-terminal\\qwen-2-5-14b.py",
+        "run qwen2.5:32b": "mavis-terminal\\qwen-2-5-32b.py",
+        "run qwen2.5:72b": "mavis-terminal\\qwen-2-5-72b.py",
+        "run qwen2.5-coder:0.5b": "mavis-terminal\\qwen-2-5-coder-0.5b.py",
+        "run qwen2.5-coder:1.5b": "mavis-terminal\\qwen-2-5-coder-0.5b.py",
+        "run qwen2.5-coder:3b": "mavis-terminal\\qwen-2-5-coder-0.5b.py",
+        "run qwen2.5-coder:7b": "mavis-terminal\\qwen-2-5-coder-0.5b.py",
+        "run qwen2.5-coder:14b": "mavis-terminal\\qwen-2-5-coder-0.5b.py",
+        "run qwen2.5-coder:32b": "mavis-terminal\\qwen-2-5-coder-0.5b.py",
+        "run gemma3:1b": "mavis-terminal\\gemma-3-1b.py", # new
+        "run gemma3:4b": "mavis-terminal\\gemma-3-4b.py", # new
+        "run gemma3:12b": "mavis-terminal\\gemma-3-12b.py", # new
+        "run gemma3:27b": "mavis-terminal\\gemma-3-27b.py", # new
+        "run qwq": "mavis-terminal\\qwq.py", # new
+        "run command-a": "mavis-terminal\\command-a.py", #new
+        "run phi4-mini": "mavis-terminal\\phi-4-mini.py", #new
+        "run granite3.2:8b": "mavis-terminal\\granite-3-2-8b.py", # new
+        "run granite3.2:2b": "mavis-terminal\\granite-3-2-2b.py", # new
+        "run granite3.2-vision:2b": "mavis-terminal\\granite-3-2-2b-vision.py", # new
+        "run qwen-2-5-omni:7b": "mavis-terminal\\qwen-2-5-omni-7b.py",  # new
+        "run qvq:72b": "mavis-terminal\\qvq-72b.py",  # new
+        "run qwen-2-5-vl:32b": "mavis-terminal\\qwen-2-5-vl-32b.py",  # new
+        "run qwen-2-5-vl:72b": "mavis-terminal\\qwen-2-5-vl-72b.py",  # new
+        "run llama-4-maverick:17b": "mavis-terminal\\llama-4-maverick-17b.py",  # new
+        "run llama-4-scout:17b": "mavis-terminal\\llama-4-scout-17b.py",  # new
+        "run deepcoder:1.5b": "mavis-terminal\\deepcoder-1-5b.py",  # new
+        "run deepcoder:14b": "mavis-terminal\\deepcoder-14b.py", # new
+        "run mistral-small3.1": "mavis-terminal\\mistral-small-3-1.py",  # new
+        "install deepseek-r1:1.5b": "mavis-terminal\\deepseek-r1-1-5b.py",
+        "install deepseek-r1:7b": "mavis-terminal\\deepseek-r1-7b.py",
+        "install deepseek-r1:8b": "mavis-terminal\\deepseek-r1-8b.py",
+        "install deepseek-r1:14b": "mavis-terminal\\deepseek-r1-14b.py",
+        "install deepseek-r1:32b": "mavis-terminal\\deepseek-r1-32b.py",
+        "install deepseek-r1:70b": "mavis-terminal\\deepseek-r1-70b.py",
+        "install deepseek-r1:671b": "mavis-terminal\\deepseek-r1-671b.py",
+        "install deepscaler": "mavis-terminal\\deepscaler.py",
+        "install llama3.1:8b": "mavis-terminal\\llama-3-1-8b.py",
+        "install llama3.1:70b": "mavis-terminal\\llama-3-1-70b.py",
+        "install llama3.1:405": "mavis-terminal\\llama-3-1-405b.py",
+        "install llama3.2:1b": "mavis-terminal\\llama-3-2-1b.py",
+        "install llama3.2:3b": "mavis-terminal\\llama-3-2-3b.py",
+        "install llama3.3": "mavis-terminal\\llama-3-3.py",
+        "install llama3:8b": "mavis-terminal\\llama-3-8b.py",
+        "install llama3:70b": "mavis-terminal\\llama-3-70b.py",
+        "install mistral": "mavis-terminal\\mistral.py",
+        "install mistral-large": "mavis-terminal\\mistral-large.py", #new
+        "install mistral-nemo": "mavis-terminal\\mistral-nemo.py", #new
+        "install mistral-openorca": "mavis-terminal\\mistral-openorca.py", #new
+        "install mistral-small:22b": "mavis-terminal\\mistral-small-22b.py", #new
+        "install mistral-small:24b": "mavis-terminal\\mistral-small-24b.py", #new
+        "install phi4": "mavis-terminal\\phi-4.py",
+        "install qwen2.5:0.5b": "mavis-terminal\\qwen-2-5-0.5b.py",
+        "install qwen2.5:1.5b": "mavis-terminal\\qwen-2-5-1.5b.py",
+        "install qwen2.5:3b": "mavis-terminal\\qwen-2-5-3b.py",
+        "install qwen2.5:7b": "mavis-terminal\\qwen-2-5-7b.py",
+        "install qwen2.5:14b": "mavis-terminal\\qwen-2-5-14b.py",
+        "install qwen2.5:32b": "mavis-terminal\\qwen-2-5-32b.py",
+        "install qwen2.5:72b": "mavis-terminal\\qwen-2-5-72b.py",
+        "install qwen2.5-coder:0.5b": "mavis-terminal\\qwen-2-5-coder-0.5b.py",
+        "install qwen2.5-coder:1.5b": "mavis-terminal\\qwen-2-5-coder-0.5b.py",
+        "install qwen2.5-coder:3b": "mavis-terminal\\qwen-2-5-coder-0.5b.py",
+        "install qwen2.5-coder:7b": "mavis-terminal\\qwen-2-5-coder-0.5b.py",
+        "install qwen2.5-coder:14b": "mavis-terminal\\qwen-2-5-coder-0.5b.py",
+        "install qwen2.5-coder:32b": "mavis-terminal\\qwen-2-5-coder-0.5b.py",
+        "install gemma3:1b": "mavis-terminal\\gemma-3-1b.py", # new
+        "install gemma3:4b": "mavis-terminal\\gemma-3-4b.py", # new
+        "install gemma3:12b": "mavis-terminal\\gemma-3-12b.py", # new
+        "install gemma3:27b": "mavis-terminal\\gemma-3-27b.py", # new
+        "install qwq": "mavis-terminal\\qwq.py", # new
+        "install command-a": "mavis-terminal\\command-a.py", # new
+        "install phi4-mini": "mavis-terminal\\phi-4-mini.py", # new
+        "install granite3.2:8b": "mavis-terminal\\granite-3-2-8b.py", # new
+        "install granite3.2:2b": "mavis-terminal\\granite-3-2-2b.py", # new
+        "install granite3.2-vision:2b": "mavis-terminal\\granite-3-2-2b-vision.py", # new
+        "install qwen-2-5-omni:7b": "mavis-terminal\\qwen-2-5-omni-7b.py",  # new
+        "install qvq:72b": "mavis-terminal\\qvq-72b.py",  # new
+        "install qwen-2-5-vl:32b": "mavis-terminal\\qwen-2-5-vl-32b.py",  # new
+        "install qwen-2-5-vl:72b": "mavis-terminal\\qwen-2-5-vl-72b.py",  # new
+        "install llama-4-maverick:17b": "mavis-terminal\\llama-4-maverick-17b.py",  # new
+        "install llama-4-scout:17b": "mavis-terminal\\llama-4-scout-17b.py",  # new
+        "install deepcoder:1.5b": "mavis-terminal\\deepcoder-1-5b.py",  # new
+        "install deepcoder:14b": "mavis-terminal\\deepcoder-14b.py",  # new
+        "install mistral-small3.1": "mavis-terminal\\mistral-small-3-1.py",  # new
+        "help": "mavis-terminal\\help.py",
+        "image generation": "mavis-terminal\\stable-diffusion-3-5-large-turbo.py",
+        "video generation": "mavis-terminal\\wan-2-1-t2v-14b.py",
+        "run mavis": "mavis-installer-3-main-windows.py",
+        "m run all": "mavis-terminal\\m-run-all.py", # new
+        "m htop": "mavis-terminal\\m-htop.py", # new
+        "m run gemma3": "mavis-terminal\\m-gemma-3.py", # new
+        "m run deepseek-r1": "mavis-terminal\\m-deepseek-r1.py", # new
+        "m run qwen2.5": "mavis-terminal\\m-qwen-2-5.py", # new
+        "m run qwen2.5-coder": "mavis-terminal\\m-qwen-2-5-coder.py", # new
+        "m python frameworks": "mavis-terminal\\m-python-frameworks.py", # new
+        "m pip list": "mavis-terminal\\m-python-frameworks.py", # new
+        "m pip ls": "mavis-terminal\\m-python-frameworks.py",  # new
+        "m git ls": "mavis-terminal\\m-git.py", # new
+        "m git": "mavis-terminal\\m-git.py",  # new
+        "m ls": "mavis-terminal\\m-ls.py", # new
+        "models": "mavis-terminal\\models-ls.py",  # new
+        "models ls": "mavis-terminal\\models-ls.py",  # new
+        "m models": "mavis-terminal\\m-models-ls.py",  # new
+        "m models ls": "mavis-terminal\\m-models-ls.py",  # new
+        "m github mavis": "mavis-terminal\\m-github-mavis.py",  # new
+        "m github commits": "mavis-terminal\\m-github-commits.py",  # new
+        "m github issues": "mavis-terminal\\m-github-issues.py",  # new
+        "m github peharge": "mavis-terminal\\m-github-peharge.py",  # new
+        "m github pulls": "mavis-terminal\\m-github-pulls.py",  # new
+        "m github readme": "mavis-terminal\\m-github-readme.py",  # new
+        "m github releases": "mavis-terminal\\m-github-releases.py",  # new
+        "m github": "mavis-terminal\\m-github.py",  # new
+        "m search": "mavis-terminal\\m-search.py",  # new
+        "m google": "mavis-terminal\\m-google.py",  # new
+        "m ollama": "mavis-terminal\\m-ollama.py",  # new
+        "m huggingface": "mavis-terminal\\m-huggingface.py",  # new
+        "m github.com": "mavis-terminal\\m-github.py",  # new
+        "m kali.com": "mavis-terminal\\m-kali.py",  # new
+        "m mint.com": "mavis-terminal\\m-mint.py",  # new
+        "m monai.com": "mavis-terminal\\m-monai.py",  # new
+        "m monai-github.com": "mavis-terminal\\m-monai-git.py",  # new
+        "m python.com": "mavis-terminal\\m-python.py",  # new
+        "m pytorch.com": "mavis-terminal\\m-pytorch.py",  # new
+        "m pytorch-github.com": "mavis-terminal\\m-pytorch-git.py",  # new
+        "m ubuntu.com": "mavis-terminal\\m-ubuntu.py",  # new
+        "m 3dslicer-github.com": "mavis-terminal\\m-3dslicer-git.py",  # new
+        "m 3dslicer.com": "mavis-terminal\\m-3dslicer-web.py",  # new
+        "m arch.com": "mavis-terminal\\m-arch.py",  # new
+        "m debian.com": "mavis-terminal\\m-debian.py",  # new
+        "m google.com": "mavis-terminal\\m-google.py",  # new
+        "m ollama.com": "mavis-terminal\\m-ollama.py",  # new
+        "m huggingface.com": "mavis-terminal\\m-huggingface.py",  # new
+        "m mavis": "mavis-terminal\\m-mavis-git.py",  # new
+        "m mavis.com": "mavis-terminal\\m-mavis.py",  # new
+        "m simon": "mavis-terminal\\m-simon.py",  # new
+        "m simon.com": "mavis-terminal\\m-simon-git.py", # new
+        "wsl info": "mavis-terminal\\wsl-info.py",  # new
+        "m wsl": "mavis-terminal\\m-wsl.py", # new
+        "m pip": "mavis-terminal\\m-pip.py",  # new
+        "m ubuntu": "mavis-terminal\\m-wsl-ubuntu.py",  # new
+        "m debian": "mavis-terminal\\m-wsl-debian.py",  # new
+        "m kali": "mavis-terminal\\m-wsl-kali.py",  # new
+        "m arch": "mavis-terminal\\m-wsl-arch.py",  # new
+        "m mint": "mavis-terminal\\m-wsl-mint.py",  # new
+        "m opensuse": "mavis-terminal\\m-wsl-opensuse.py",  # new
+        "m fedora": "mavis-terminal\\m-wsl-fedora.py",  # new
+        "m redhat": "mavis-terminal\\m-wsl-redhat.py",  # new
+        "m alpine": "mavis-terminal\\m-wsl-alpine.py",  # new
+        "m clear": "mavis-terminal\\m-wsl-clearlinux.py",  # new
+        "m oracle": "mavis-terminal\\m-wsl-oracle.py",  # new
+        "m pengwin": "mavis-terminal\\m-wsl-pengwin.py",  # new
+        "m sles": "mavis-terminal\\m-wsl-sles.py",  # new
+        "m neofetch": "mavis-terminal\\m-neofetch.py",  # new
+        "m fastfetch": "mavis-terminal\\m-neofetch.py",  # new
+        "m screenfetch": "mavis-terminal\\m-neofetch.py",  # new
+        "install 3d-slicer": "run\\simon\\3d-slicer\\install-3d-slicer.py", # new
+        "run 3d-slicer": "run\\simon\\3d-slicer\\run-3d-slicer.py",  # new
+        "install simon": "run\\simon\\install-simon-1.py",  # new
+        "run simon": "run-jup\\run-jup.py",  # new
+        "jupyter --version": "mavis-terminal\\jupyter-version.py", # new
+        "grafana --version": "mavis-terminal\\grafana-version.py",  # new
+        "3d-slicer --version": "mavis-terminal\\3d-slicer-version.py",  # new
+        "doctor": "mavis-terminal\\doctor.py" # new
+    }

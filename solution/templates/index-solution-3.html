@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live KI-Assistent</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #video-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .task-bar {
+            height: 10%;
+            width: 40%;
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            bottom: 4%;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            color: white;
+            font-family: Arial, sans-serif;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(8px);
+            border-radius: 25px;
+            border-bottom: 3px solid rgba(0, 0, 0, 0.440);
+            border-left: 2px rgba(0, 0, 0, 0.545) outset;
+            padding: 10px;
+            box-shadow: 20px 30px 15px rgba(0, 0, 0, 0.280);
+        }
+
+        .btn-audio {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            left: 30%;
+            border: none;
+            width: 40%;
+            max-width: 450px;
+            min-width: 50px;
+            height: 59%;
+            max-height: 250px;
+            min-height: 40px;
+            border-radius: 0.8rem;
+            gap: 12px;
+            background-color: rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 450ms ease-in-out;
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 1), -1px -1px 6px rgba(255, 255, 255, 0.4);
+        }
+
+        .sparkle-audio {
+            fill: #ffffff;
+            transition: all 800ms ease;
+        }
+
+        .text-audio {
+            font-weight: 600;
+            color: #ffffff;
+            font-size: clamp(0.5rem, 0.85vw, 3rem);
+        }
+
+        .btn-audio:hover {
+            background: linear-gradient(0deg,#A47CF3,#683FEA);
+            box-shadow: 3px 5px 10px #9917FF, -1px -1px 6px rgba(255, 255, 255, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .btn-audio:hover .text {
+            color: white;
+        }
+
+        .btn-audio:hover .sparkle {
+            fill: white;
+            transform: scale(1.2);
+        }
+    </style>
+</head>
+<body>
+<div id="video-container">
+    <video id="background-video" autoplay playsinline></video>
+</div>
+
+<div class="task-bar" id="controls">
+    <button class="btn-audio" onclick="startProcessing()">
+        <svg height="1.4vw" width="1.4vw" fill="#FFFFFF" viewBox="0 0 24 24" data-name="Layer 1" id="Layer_1"
+             class="sparkle-audio">
+            <path d="M10,21.236,6.755,14.745.264,11.5,6.755,8.255,10,1.764l3.245,6.491L19.736,11.5l-6.491,3.245ZM18,21l1.5,3L21,21l3-1.5L21,18l-1.5-3L18,18l-3,1.5ZM19.333,4.667,20.5,7l1.167-2.333L24,3.5,21.667,2.333,20.5,0,19.333,2.333,17,3.5Z"></path>
+        </svg>
+
+        <span class="text-audio">ask Solution ext.</span>
+    </button>
+    <p id="response"></p>
+</div>
+
+<script>
+    function startProcessing() {
+        fetch('/process', {method: 'POST'})
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("response").innerText = "Answer: " + data.response;
+                    let audioPlayer = document.getElementById("audio-player");
+                    audioPlayer.src = data.audio;
+                    audioPlayer.play();
+                })
+                .catch(error => console.error('Error:', error));
+    }
+
+    function startCamera() {
+        navigator.mediaDevices.getUserMedia({video: true})
+                .then(stream => {
+                    let videoElement = document.getElementById("background-video");
+                    videoElement.srcObject = stream;
+                })
+                .catch(error => console.error("Error accessing the camera: ", error));
+    }
+
+    startCamera();
+</script>
+</body>
+</html>

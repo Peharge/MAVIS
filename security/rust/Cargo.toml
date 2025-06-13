@@ -1,0 +1,10 @@
+[package]
+name = "security_scan"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+chrono = "0.4"
+walkdir = "2.3"
+regex = "1.7"
+ctrlc = "3.2"

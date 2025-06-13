@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Chatbot</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <script src="main-code.js" defer></script> <!-- JavaScript einbinden -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link rel="icon" type="image/png" href="images/peharge-logo3.4.png" />
+
+    <style>
+        body {
+            font-family: Calibri, sans-serif;
+            background-image: url('images/Himmel.jpg'); /* Hintergrundbild setzen */
+            background-size: cover; /* Bild an den Bildschirm anpassen */
+            background-repeat: no-repeat; /* Bild nicht wiederholen */
+            background-position: center; /* Bild zentrieren */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .chat-container {
+            width: 90%;
+            height: 80%;
+            max-width: 900px;
+            background-color: #000;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .chat-output {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background-color: #f9f9f9;
+            border-bottom: 2px solid #eee;
+        }
+        .message-box {
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 15px;
+            font-size: 16px;
+            max-width: 75%;
+            word-wrap: break-word;
+        }
+        .message-box.user {
+            background-color: #007bff;
+            color: white;
+            margin-left: auto;
+            text-align: right;
+        }
+        .message-box.bot {
+            background-color: #e0e0e0;
+            color: #333;
+            margin-right: auto;
+        }
+        select {
+            width: 150px;
+            position: relative; /* oder absolute, je nach Kontext */
+            right: 30%; /* 50% von der linken Seite des Containers */
+            transform: translateX(20%); /* Verschiebt den Button um die Hälfte seiner Breite nach rechts */
+        }
+        /* Taskleiste in der Mitte und um 50px nach oben verschoben */
+        .taskbar {
+            position: absolute;
+            bottom: 50px; /* Taskleiste um 50px nach oben verschoben */
+            left: 50%; /* Zentriert horizontal */
+            transform: translateX(-50%); /* Korrektur für horizontale Zentrierung */
+            width: 35%; /* 30% der Breite des Bildschirms */
+            height: 100px;
+            background: radial-gradient(circle,
+                rgba(175, 175, 175, 0.3) 0%,
+                rgba(202, 202, 202, 0.3) 50%,
+                rgba(170, 170, 170, 0.3) 100%);
+            backdrop-filter: blur(10px); /* Glas-Effekt */
+            border-radius: 25px; /* Abgerundete Ecken auf allen Seiten */
+            border-width: 3px; /* Breite des Rahmens */
+            border-style: solid; /* Art des Rahmens */
+            border-color: rgba(255, 255, 255, 0.2); /* Farbe des Rahmens */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 3px 8px 5px 0px rgba(0, 0, 0, 0.2);
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 15px;
+            margin-left: 10px;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .loading {
+            display: none; /* Standardmäßig ausgeblendet */
+            text-align: center;
+            font-size: 18px;
+            margin: 10px 0;
+        }
+        .chat-output::-webkit-scrollbar {
+            width: 8px;
+        }
+        .chat-output::-webkit-scrollbar-thumb {
+            background-color: #888;
+            border-radius: 10px;
+        }
+        .chat-output::-webkit-scrollbar-thumb:hover {
+            background-color: #555;
+        }
+        /* Button für Bild aufnehmen */
+        .capture-btn {
+            position: relative; /* oder absolute, je nach Kontext */
+            left: 20%; /* 50% von der linken Seite des Containers */
+            transform: translateX(20%); /* Verschiebt den Button um die Hälfte seiner Breite nach rechts */
+        }
+
+
+        .capture-btn {
+            border: none;
+            width: 6em;
+            height: 4em;
+            border-radius: 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            background: radial-gradient(circle,
+                rgba(255, 255, 255, 0.4) 0%,
+                rgba(255, 255, 255, 0.4) 50%,
+                rgba(255, 255, 255, 0.4) 100%);
+            cursor: pointer;
+            transition: all 450ms ease-in-out;
+            backdrop-filter: blur(10px); /* Glas-Effekt */
+            border-radius: 25px; /* Abgerundete Ecken auf allen Seiten */
+            border-width: 3px; /* Breite des Rahmens */
+            border-style: solid; /* Art des Rahmens */
+            border-color: rgba(255, 255, 255, 0); /* Farbe des Rahmens */
+            margin-left: 50px; /* Verschiebt das Element um 100px nach rechts */
+        }
+        .capture-btn:hover {
+            background: linear-gradient(0deg,rgb(164, 124, 243, 0.5),rgba(104, 63, 234, 0.5));
+            box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.2),
+            inset 0px -4px 0px 0px rgba(0, 0, 0, 0.2),
+            0px 0px 0px 4px rgba(255, 255, 255, 0),
+            0px 0px 180px 0px rgba(153, 23, 255);
+            backdrop-filter: blur(10px); /* Glas-Effekt */
+            border: none;
+            border-radius: 25px;
+            display: flex;
+        }
+
+        .capture-btn:hover .text {
+            color: white;
+        }
+
+        .capture-btn:hover .sparkle {
+            fill: white;
+            transform: scale(1.2);
+        }
+        /* From Uiverse.io by AlimurtuzaCodes */
+        .btn {
+            position: relative; /* oder absolute, je nach Kontext */
+            left: 0%; /* 50% von der linken Seite des Containers */
+            transform: translateX(20%); /* Verschiebt den Button um die Hälfte seiner Breite nach rechts */
+          border: none;
+          width: 12em;
+          height: 4.5em;
+          border-radius: 3em;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 12px;
+            background: radial-gradient(circle,
+                rgba(255, 255, 255, 0.4) 0%,
+                rgba(255, 255, 255, 0.4) 50%,
+                rgba(255, 255, 255, 0.4) 100%);
+                backdrop-filter: blur(10px); /* Glas-Effekt */
+          cursor: pointer;
+          transition: all 450ms ease-in-out;
+        }
+
+        .sparkle {
+          fill: #AAAAAA;
+          transition: all 800ms ease;
+        }
+
+        .text {
+          font-weight: 600;
+          color: #AAAAAA;
+          font-size: medium;
+        }
+
+        .btn:hover {
+            background: linear-gradient(0deg,rgb(164, 124, 243, 0.5),rgba(104, 63, 234, 0.5));
+            box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.2),
+            inset 0px -4px 0px 0px rgba(0, 0, 0, 0.2),
+            0px 0px 0px 4px rgba(255, 255, 255, 0),
+            0px 0px 180px 0px rgba(153, 23, 255);
+            transform: translateY(-2px);
+            backdrop-filter: blur(10px); /* Glas-Effekt */
+            transform: translateX(20%); /* Verschiebt den Button um die Hälfte seiner Breite nach rechts */
+        }
+
+        .btn:hover .text {
+          color: white;
+        }
+
+        .btn:hover .sparkle {
+          fill: white;
+          transform: scale(1.2);
+        }
+        /* From Uiverse.io by Amankrah */
+
+
+.stardust,
+.cosmic-ring,
+.starfield,
+.nebula {
+  max-height: 70px;
+  max-width: 314px;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  overflow: hidden;
+  z-index: -1;
+  border-radius: 12px;
+  filter: blur(3px);
+}
+
+.input {
+  background-color: #05071b;
+  border: none;
+  width: 301px;
+  height: 56px;
+  border-radius: 10px;
+  color: #a9c7ff;
+  padding-inline: 59px;
+  font-size: 18px;
+}
+
+#search-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.input::placeholder {
+  color: #6e8cff;
+}
+
+.input:focus {
+  outline: none;
+}
+
+#main:focus-within > #input-mask {
+  display: none;
+}
+
+#input-mask {
+  pointer-events: none;
+  width: 100px;
+  height: 20px;
+  position: absolute;
+  background: linear-gradient(90deg, transparent, #05071b);
+  top: 18px;
+  left: 70px;
+}
+
+#cosmic-glow {
+  pointer-events: none;
+  width: 30px;
+  height: 20px;
+  position: absolute;
+  background: #4d6dff;
+  top: 10px;
+  left: 5px;
+  filter: blur(20px);
+  opacity: 0.8;
+  transition: all 2s;
+}
+
+#main:hover > #cosmic-glow {
+  opacity: 0;
+}
+
+.stardust {
+  max-height: 63px;
+  max-width: 307px;
+  border-radius: 10px;
+  filter: blur(2px);
+}
+
+.stardust::before {
+  content: "";
+  z-index: -2;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(83deg);
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  filter: brightness(1.4);
+  background-image: conic-gradient(
+    rgba(0, 0, 0, 0) 0%,
+    #4d6dff,
+    rgba(0, 0, 0, 0) 8%,
+    rgba(0, 0, 0, 0) 50%,
+    #6e8cff,
+    rgba(0, 0, 0, 0) 58%
+  );
+  transition: all 2s;
+}
+
+.cosmic-ring {
+  max-height: 59px;
+  max-width: 303px;
+  border-radius: 11px;
+  filter: blur(0.5px);
+}
+
+.cosmic-ring::before {
+  content: "";
+  z-index: -2;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(70deg);
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  filter: brightness(1.3);
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  background-image: conic-gradient(
+    #05071b,
+    #4d6dff 5%,
+    #05071b 14%,
+    #05071b 50%,
+    #6e8cff 60%,
+    #05071b 64%
+  );
+  transition: all 2s;
+}
+
+.starfield {
+  max-height: 65px;
+  max-width: 312px;
+}
+
+.starfield::before {
+  content: "";
+  z-index: -2;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(82deg);
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  background-image: conic-gradient(
+    rgba(0, 0, 0, 0),
+    #1c2452,
+    rgba(0, 0, 0, 0) 10%,
+    rgba(0, 0, 0, 0) 50%,
+    #2a3875,
+    rgba(0, 0, 0, 0) 60%
+  );
+  transition: all 2s;
+}
+
+#search-container:hover > .starfield::before {
+  transform: translate(-50%, -50%) rotate(-98deg);
+}
+
+#search-container:hover > .nebula::before {
+  transform: translate(-50%, -50%) rotate(-120deg);
+}
+
+#search-container:hover > .stardust::before {
+  transform: translate(-50%, -50%) rotate(-97deg);
+}
+
+#search-container:hover > .cosmic-ring::before {
+  transform: translate(-50%, -50%) rotate(-110deg);
+}
+
+#search-container:focus-within > .starfield::before {
+  transform: translate(-50%, -50%) rotate(442deg);
+  transition: all 4s;
+}
+
+#search-container:focus-within > .nebula::before {
+  transform: translate(-50%, -50%) rotate(420deg);
+  transition: all 4s;
+}
+
+#search-container:focus-within > .stardust::before {
+  transform: translate(-50%, -50%) rotate(443deg);
+  transition: all 4s;
+}
+
+#search-container:focus-within > .cosmic-ring::before {
+  transform: translate(-50%, -50%) rotate(430deg);
+  transition: all 4s;
+}
+
+.nebula {
+  overflow: hidden;
+  filter: blur(30px);
+  opacity: 0.4;
+  max-height: 130px;
+  max-width: 354px;
+}
+
+.nebula:before {
+  content: "";
+  z-index: -2;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(60deg);
+  position: absolute;
+  width: 999px;
+  height: 999px;
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  background-image: conic-gradient(
+    #000,
+    #4d6dff 5%,
+    #000 38%,
+    #000 50%,
+    #6e8cff 60%,
+    #000 87%
+  );
+  transition: all 2s;
+}
+
+#wormhole-icon {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  max-height: 40px;
+  max-width: 38px;
+  height: 100%;
+  width: 100%;
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: 10px;
+  background: linear-gradient(180deg, #1c2452, #05071b, #2a3875);
+  border: 1px solid transparent;
+}
+
+.wormhole-border {
+  height: 42px;
+  width: 40px;
+  position: absolute;
+  overflow: hidden;
+  top: 7px;
+  right: 7px;
+  border-radius: 10px;
+}
+
+.wormhole-border::before {
+  content: "";
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(90deg);
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  filter: brightness(1.35);
+  background-image: conic-gradient(
+    rgba(0, 0, 0, 0),
+    #4d6dff,
+    rgba(0, 0, 0, 0) 50%,
+    rgba(0, 0, 0, 0) 50%,
+    #6e8cff,
+    rgba(0, 0, 0, 0) 100%
+  );
+  animation: rotate 4s linear infinite;
+}
+
+#main {
+  position: relative;
+}
+
+#search-icon {
+  position: absolute;
+  left: 20px;
+  top: 15px;
+}
+
+@keyframes rotate {
+  100% {
+    transform: translate(-50%, -50%) rotate(450deg);
+  }
+}
+
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-output" id="output"></div>
+        <div class="loading" id="loading">Lade...</div> <!-- Ladeanimation -->
+
+    </div>
+
+            <div class="taskbar" id="taskbarid">
+                <select id="model-selector">
+                    {% for model, value in models.items() %}
+                        <option value="{{ model }}">{{ model }}</option>
+                    {% endfor %}
+                </select>
+                <div class="galaxy"></div>
+                    <div id="search-container">
+                      <div class="nebula"></div>
+                      <div class="starfield"></div>
+                      <div class="cosmic-dust"></div>
+                      <div class="cosmic-dust"></div>
+                      <div class="cosmic-dust"></div>
+
+                      <div class="stardust"></div>
+
+                      <div class="cosmic-ring"></div>
+
+                      <div id="main">
+                        <input
+                          class="input"
+                          name="text"
+                          type="text"
+                          placeholder="Explore the cosmos..."
+                          id="user-input"
+                        />
+                        <div id="input-mask"></div>
+                        <div id="cosmic-glow"></div>
+                        <div class="wormhole-border"></div>
+                        <div id="wormhole-icon">
+                          <svg
+                            stroke-linejoin="round"
+                            stroke-linecap="round"
+                            stroke-width="2"
+                            stroke="#a9c7ff"
+                            fill="none"
+                            height="24"
+                            width="24"
+                            viewBox="0 0 24 24"
+                          >
+                            <circle r="10" cy="12" cx="12"></circle>
+                            <path
+                              d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
+                            ></path>
+                            <path d="M2 12h20"></path>
+                          </svg>
+                        </div>
+                        <div id="search-icon">
+                          <svg
+                            stroke-linejoin="round"
+                            stroke-linecap="round"
+                            stroke-width="2"
+                            stroke="url(#cosmic-search)"
+                            fill="none"
+                            height="24"
+                            width="24"
+                            viewBox="0 0 24 24"
+                          >
+                            <circle r="8" cy="11" cx="11"></circle>
+                            <line y2="16.65" x2="16.65" y1="21" x1="21"></line>
+                            <defs>
+                              <linearGradient gradientTransform="rotate(45)" id="cosmic-search">
+                                <stop stop-color="#a9c7ff" offset="0%"></stop>
+                                <stop stop-color="#6e8cff" offset="100%"></stop>
+                              </linearGradient>
+                            </defs>
+                          </svg>
+                        </div>
+                      </div>
+                </div>
+                <button class="btn" onclick="sendMessage()">
+                    <svg height="24" width="24" fill="#FFFFFF" viewBox="0 0 24 24" data-name="Layer 1" id="Layer_1" class="sparkle">
+                        <path d="M10,21.236,6.755,14.745.264,11.5,6.755,8.255,10,1.764l3.245,6.491L19.736,11.5l-6.491,3.245ZM18,21l1.5,3L21,21l3-1.5L21,18l-1.5-3L18,18l-3,1.5ZM19.333,4.667,20.5,7l1.167-2.333L24,3.5,21.667,2.333,20.5,0,19.333,2.333,17,3.5Z"></path>
+                    </svg>
+
+                    <span class="text">Generate</span>
+
+                </button>
+            </div>
+    <script>
+        function appendToOutput(text, userType = 'user') {
+            const output = document.getElementById('output');
+            const messageBox = document.createElement('div');
+            messageBox.className = `message-box ${userType}`;
+            messageBox.innerText = text;
+            output.appendChild(messageBox);
+            output.scrollTop = output.scrollHeight;  // Scroll automatisch nach unten
+        }
+
+        function sendMessage() {
+            const userInput = document.getElementById('user-input').value;
+            const modelSelector = document.getElementById('model-selector').value;
+            const loadingIndicator = document.getElementById('loading');
+
+            if (!userInput) return;
+
+            appendToOutput(userInput, 'user');  // Nachricht des Benutzers anzeigen
+            loadingIndicator.style.display = 'block'; // Ladeanimation anzeigen
+
+            fetch('/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    message: userInput,
+                    model: modelSelector
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                loadingIndicator.style.display = 'none'; // Ladeanimation ausblenden
+                if (data.error) {
+                    appendToOutput('Fehler: ' + data.error, 'bot');
+                } else {
+                    appendToOutput(data.response, 'bot');  // Antwort des Bots anzeigen
+                }
+            })
+            .catch(error => {
+                loadingIndicator.style.display = 'none'; // Ladeanimation ausblenden
+                appendToOutput('Fehler: ' + error, 'bot');
+            });
+
+            document.getElementById('user-input').value = '';  // Eingabefeld leeren
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vision Chatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        #chat-box {
+            width: 60%;
+            margin: 0 auto;
+            margin-top: 20px;
+        }
+        .user-box, .chatbot-box {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+        .user-box {
+            background-color: #e0f7fa;
+        }
+        .chatbot-box {
+            background-color: #f1f8e9;
+        }
+        img {
+            max-width: 100px;
+            max-height: 100px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Vision Chatbot</h1>
+
+    <!-- Formular für Text und Bild -->
+    <form id="send-form" enctype="multipart/form-data">
+        <label for="message">Nachricht:</label>
+        <input type="text" id="message" name="message" placeholder="Schreibe eine Nachricht..." required>
+        <br>
+        <label for="image">Bild hochladen:</label>
+        <input type="file" id="image" name="image" accept="image/*" required>
+        <br>
+        <button type="submit">Run</button>
+    </form>
+
+    <!-- Bereich für Chatverlauf -->
+    <div id="chat-box">
+        <h3>Chat Verlauf:</h3>
+        <div id="chat-content"></div>
+    </div>
+
+    <script>
+        document.getElementById("send-form").onsubmit = async function(event) {
+            event.preventDefault();
+
+            const message = document.getElementById("message").value;
+            const image = document.getElementById("image").files[0];
+
+            const formData = new FormData();
+            formData.append('message', message);
+            formData.append('image', image);
+
+            const chatContent = document.getElementById("chat-content");
+
+            // Nachricht und Bild an den Server senden
+            const response = await fetch("/send_message", {
+                method: "POST",
+                body: formData
+            });
+
+            const data = await response.json();
+            if (data.response) {
+                // Benutzer-Nachricht und Bild in der User Box anzeigen
+                chatContent.innerHTML += `
+                    <div class="user-box">
+                        <p><strong>Du:</strong> ${message}</p>
+                        <img src="${data.image_url}" alt="Hochgeladenes Bild">
+                    </div>`;
+
+                // Antwort des Chatbots in der Chatbot Box anzeigen
+                chatContent.innerHTML += `
+                    <div class="chatbot-box">
+                        <p><strong>Bot:</strong> ${data.response}</p>
+                    </div>`;
+            } else {
+                chatContent.innerHTML += `<p><strong>Fehler:</strong> ${data.error}</p>`;
+            }
+        };
+    </script>
+</body>
+</html>

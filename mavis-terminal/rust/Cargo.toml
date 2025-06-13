@@ -1,0 +1,11 @@
+[package]
+name = "---"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+windows-sys = "0.52.0"
+chrono = "0.4"
+walkdir = "2.3"
+regex = "1.7"
+ctrlc = "3.2"
