@@ -28,7 +28,7 @@
 **MA**_th_ **V**_isual_ **I**_ntelligent_ **S**_ystem (Strongest calculator in the world).<br>
 Peharge Projects 2025<br>
 Thank you for your interest in MAVIS. We greatly appreciate that ❤️<br><br>
-[`MAVIS.com offline`](https://github.com/Peharge/peharge-web) [`Download MAVIS 4 (WINDOWS)`](https://github.com/Peharge/MAVIS/blob/main/mavis-launcher-4.bat) [`Download MAVIS 4 (Linux - Arch)`](https://github.com/Peharge/MAVIS/blob/main/install-on-larch-lx.md) [`Download MAVIS Terminal 5 (WINDOWS)`](https://github.com/Peharge/MAVIS/blob/main/run-mavis-terminal-5.bat) [`Download PP-Term 4.3 (WINDOWS)`](https://github.com/Peharge/p-terminal/blob/main/pp-term/run-pp-term.bat) [`License`](https://opensource.org/licenses/MIT) 
+[`MAVIS.com offline`](https://github.com/Peharge/peharge-web) [`Download MAVIS 4 (WINDOWS)`](https://github.com/Peharge/MAVIS/blob/main/mavis-launcher-4.bat) [`Download MAVIS 4 (Linux - Arch)`](https://github.com/Peharge/MAVIS/blob/main/install-on-larch-lx.md) [`Download MAVIS Terminal 5 (WINDOWS)`](https://github.com/Peharge/MAVIS/blob/main/run-mavis-terminal-5.bat) [`Download PP-Term 4.3 (WINDOWS)`](https://github.com/Peharge/p-terminal/blob/main/pp-term/run-pp-term.bat) [`License`](https://opensource.org/licenses/MIT) [`MAVIS Old +2000 Commits`](https://github.com/Peharge/MAVIS)
 
 _Do you think you're better at math than an AI? Prove it! Show that there are infinitely many pairs of prime numbers that are exactly 2 apart. No proof? No answer? Well – maybe it can't be done without AI after all! What are you waiting for? Ask [MAVIS - install](#installation)!_
 
