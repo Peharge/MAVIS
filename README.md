@@ -1531,7 +1531,7 @@ BERT is conceptually simple and empirically powerful. It obtains new state-of-th
 
 <div align="center">
 
-[`MAVIS.com`](https://github.com/Peharge/peharge-web) [`Download MAVIS 4 (WINDOWS)`](https://github.com/Peharge/MAVIS/blob/main/mavis-launcher-4.bat) [`Download MAVIS 4 (Linux - Arch)`](https://github.com/Peharge/MAVIS/blob/main/install-on-larch-lx.md) [`Download MAVIS Terminal 5 (WINDOWS)`](https://github.com/Peharge/MAVIS/blob/main/run-mavis-terminal-5.bat) [`Download PP-Term 4.3 (WINDOWS)`](https://github.com/Peharge/p-terminal/blob/main/pp-term/run-pp-term.bat) [`License`](https://opensource.org/licenses/MIT)
+[`MAVIS.com offline`](https://github.com/Peharge/peharge-web) [`Download MAVIS 4 (WINDOWS)`](https://github.com/Peharge/MAVIS/blob/main/mavis-launcher-4.bat) [`Download MAVIS 4 (Linux - Arch)`](https://github.com/Peharge/MAVIS/blob/main/install-on-larch-lx.md) [`Download MAVIS Terminal 5 (WINDOWS)`](https://github.com/Peharge/MAVIS/blob/main/run-mavis-terminal-5.bat) [`Download PP-Term 4.3 (WINDOWS)`](https://github.com/Peharge/p-terminal/blob/main/pp-term/run-pp-term.bat) [`License`](https://opensource.org/licenses/MIT)
 
 [`LICENSE`](LICENSE) [`SECURITY`](SECURITY.md) [`PULL_REQUEST_TEMPLATE`](PULL_REQUEST_TEMPLATE.md) [`CONTRIBUTING`](CONTRIBUTING.md) [`CODE_OF_CONDUCT`](CODE_OF_CONDUCT.md) [`TREE`](TREE.md) [`VERSIONS`](VERSIONS.md)
 
