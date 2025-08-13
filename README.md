@@ -1,3 +1,5 @@
+This is a school project created purely for practice purposes – there is no professional or commercial intention behind it.
+
 <p align="center">
     <img src="https://github.com/Peharge/MAVIS-images/blob/main/mavis-img-main/mavis-4-icon-3.png" width="350">
 </p>
