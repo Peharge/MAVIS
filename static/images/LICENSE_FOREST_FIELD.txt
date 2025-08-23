@@ -1,0 +1,18 @@
+BlenderKit Scenes - Royalty-Free
+
+Original Asset Authors: 
+- Sueti Begum (Forest Field, Forest, Green Forest Landscape)
+- Menghour Nhoek (AI CPU Activation with Energy Pulse)
+- Võ Khanh (3D Perfume Scene | MYA Design)
+
+Description:
+This project contains modified versions of the above scenes from BlenderKit.
+Modifications may include added logos, new renderings, or other project-specific adjustments.
+
+Usage Guidelines:
+- The original BlenderKit scenes are used under the Royalty-Free license.
+- You may use these scenes within this project for personal, educational, or commercial purposes.
+- The original scene files are not intended for standalone redistribution or resale.
+- Any modifications or renderings are part of this project and are allowed under the Royalty-Free license.
+
+Please respect the original authors' work and BlenderKit's license terms.
