@@ -1,3 +1,6 @@
+This is a school project created purely for practice purposes – there is no professional or commercial intention behind it.
+This project is no longer being developed, as the school project has ended. Additional repositories containing images and web assistants (instructions) have now been set to private – sorry for the inconvenience!
+
 <p align="center">
     <img src="https://github.com/Peharge/MAVIS-images/blob/main/mavis-img-main/mavis-4-icon-3.png" width="350">
 </p>
